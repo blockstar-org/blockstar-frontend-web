@@ -1,0 +1,36 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+import styled, { keyframes } from 'styled-components';
+const spinAnimation = keyframes `
+  to {
+    transform: rotate(360deg);
+  }
+`;
+const CircularSpinnerContainer = styled.div `
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: ${({ height }) => height || '100%'};
+  width: auto;
+`;
+const calculateBorder = (size) => {
+    // Assuming the default size is 40px with a 4px border,
+    // calculate the border size as a fraction of the height.
+    const defaultSize = 40;
+    const defaultBorder = 4;
+    const newSize = parseInt(size);
+    const newBorder = (newSize * defaultBorder) / defaultSize;
+    return isNaN(newBorder) ? defaultBorder : newBorder;
+};
+const Spinner = styled.div `
+  border: ${({ height, color }) => `${calculateBorder(height || '40px')}px solid ${color || '#e0e0e0'}`};
+  border-radius: 50%;
+  border-top: ${({ height }) => `${calculateBorder(height || '40px')}px solid transparent`};
+  width: ${({ height }) => height || '40px'};
+  height: ${({ height }) => height || '40px'};
+  animation: ${spinAnimation} 1s linear infinite;
+`;
+const CircularSpinner = (props) => {
+    const { height = '40px', style, color } = props;
+    return (_jsx(CircularSpinnerContainer, { height: height, style: style || {}, children: _jsx(Spinner, { height: height, color: color }) }));
+};
+export default CircularSpinner;
