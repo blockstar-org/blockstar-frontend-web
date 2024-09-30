@@ -2,7 +2,7 @@
   "compilerOptions": {
     "composite": true,
     "target": "ES2022",
-    "lib": ["ESNext"],  // Add DOM if needed for browser-related types
+    "lib": ["ESNext"], // Add DOM if needed for browser-related types
     "module": "ESNext",
     "skipLibCheck": true,
 
