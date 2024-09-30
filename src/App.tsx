@@ -4,6 +4,8 @@ import ErrorPage from "./components/404Page/ErrorPage";
 import { Login } from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
 import { Home } from "./pages/home/Home";
+import { ForgotPassword } from "./pages/login/ForgotPassword";
+import { ChangePassword } from "./pages/login/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />, // Login page component
       },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />, // Forgot passord page component
+      },
+      {
+        path: "/reset-password",
+        element: <ChangePassword />, // Reset passord page component
+      }
     ],
   },
 ]);

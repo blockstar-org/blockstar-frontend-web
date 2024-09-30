@@ -1,3 +1,4 @@
+import { useGetUserQuery } from "../../integration/redux/apis/userApi";
 import { VideoTimeline } from "./VideoTimeline";
 
 const exampleData = {
@@ -54,5 +55,8 @@ const exampleData = {
 };
 
 export const Home = () => {
-  return <VideoTimeline timeline={exampleData.timeline} />;
+  const { data, error, isLoading } = useGetUserQuery()
+  console.log({data});
+  
+  return <>Home</>;
 };
