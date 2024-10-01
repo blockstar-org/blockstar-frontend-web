@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseApi, variables } from "../../../utilities/constants";
 
 // Define a service using a base URL and expected endpoints
-export const userApi = createApi({
-  reducerPath: "userApi",
+export const utilsApi = createApi({
+  reducerPath: "utilsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseApi}`,
     prepareHeaders: (headers, { getState }) => {
@@ -19,16 +19,10 @@ export const userApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getUser: builder.query<void, void>({
-      query: () => ({
-        url: `auth/user`,
+    presignedUrl: builder.query<any, any>({
+      query: ({ filename, filetype, filepath }) => ({
+        url: `utils/presigned-url?filename=${filename}&filetype=${filetype}&filepath=${filepath}`,
         method: "get",
-      }),
-    }),
-    updateUser: builder.mutation<any, any>({
-      query: (payload) => ({
-        url: `auth/user?`,
-        method: "PATCH",
       }),
     }),
   }),
@@ -36,4 +30,4 @@ export const userApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetUserQuery, useUpdateUserMutation } = userApi;
+export const { useLazyPresignedUrlQuery } = utilsApi;

@@ -6,6 +6,7 @@ import Layout from "./components/layout/Layout";
 import { Home } from "./pages/home/Home";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 import { ChangePassword } from "./pages/login/ChangePassword";
+import { Profile } from "./pages/profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -23,11 +24,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/forgot-password",
-        element: <ForgotPassword />, // Forgot passord page component
+        element: <ForgotPassword />, // Forgot password page component
       },
       {
         path: "/reset-password",
-        element: <ChangePassword />, // Reset passord page component
+        element: <ChangePassword />, // Reset password page component
+      },
+      {
+        path: "/profile",
+        element: <Profile />, 
       }
     ],
   },

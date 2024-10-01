@@ -2,16 +2,22 @@ import { configureStore } from "@reduxjs/toolkit";
 import counterReducer from "./slice/counterslice";
 import { loginApi } from "./apis/loginApi";
 import { userApi } from "./apis/userApi";
+import { utilsApi } from "./apis/utilsApi";
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     [userApi.reducerPath]: userApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
+    [utilsApi.reducerPath]: utilsApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([userApi.middleware, loginApi.middleware]),
+    getDefaultMiddleware().concat([
+      userApi.middleware,
+      loginApi.middleware,
+      utilsApi.middleware,
+    ]),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
