@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "composite": true,
+    // "composite": true,
     "target": "ESNext",
     "lib": ["ESNext", "DOM"],  
     "module": "ESNext",
@@ -11,15 +11,16 @@
     "moduleResolution": "node",  // Set moduleResolution to 'node'
     "resolveJsonModule": true,  // Keep this since you want to resolve JSON modules
     "isolatedModules": true,
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "incremental": false 
   },
   "include": ["src", "global.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  // "references": [{ "path": "./tsconfig.node.json" }]
 }
