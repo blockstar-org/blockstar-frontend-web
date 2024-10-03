@@ -37,7 +37,7 @@ const Layout = () => {
           maxWidth: "1440px",
         }}
       >
-        <Header />
+        {/* <Header /> */}
         <Outlet />
       </main>
     </div>
