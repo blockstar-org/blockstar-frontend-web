@@ -1,207 +1,220 @@
-import { Form } from 'formik'
-import { styled, keyframes } from 'styled-components'
-import { colors, fonts, screenSizesPx } from './theme'
+import { Form, ErrorMessage } from "formik";
+import { styled, keyframes } from "styled-components";
+import { colors, fonts, screenSizesPx } from "./theme";
 
 interface HeadingProps {
-  size?: string
-  lineheight?: string
-  margin?: string
-  padding?: string
-  spacing?: string
-  align?: 'center' | 'left' | 'right' | 'justify' | 'initial' | 'inherit' | 'start' | 'end'
-  weight?: number
-  transform?: 'uppercase' | 'capitalize' | 'lowercase' | 'none'
+  size?: string;
+  lineheight?: string;
+  margin?: string;
+  padding?: string;
+  spacing?: string;
+  align?:
+    | "center"
+    | "left"
+    | "right"
+    | "justify"
+    | "initial"
+    | "inherit"
+    | "start"
+    | "end";
+  weight?: number;
+  transform?: "uppercase" | "capitalize" | "lowercase" | "none";
 }
 
-export const H1 = styled.h1<HeadingProps>`
-  font-size: ${({ size }) => size || '30px'};
-  font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
-  height: fit-content;
-  color: ${({ color }) => color || '#000'};
+export const CustomError = styled(ErrorMessage)`
+  color: ${colors.teal};
   font-family: ${fonts.SansRegular};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+`;
+
+export const H1 = styled.h1<HeadingProps>`
+  font-size: ${({ size }) => size || "30px"};
+  font-style: normal;
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
+  height: fit-content;
+  color: ${({ color }) => color || colors.white};
+  font-family: ${fonts.SansRegular};
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const H2 = styled.h2<HeadingProps>`
-  font-size: ${({ size }) => size || '27px'};
+  font-size: ${({ size }) => size || "27px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
   height: fit-content;
-  color: ${({ color }) => color || '#000'};
+  color: ${({ color }) => color || colors.white};
   font-family: ${fonts.SansBold};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const H3 = styled.h3<HeadingProps>`
-  font-size: ${({ size }) => size || '25px'};
+  font-size: ${({ size }) => size || "25px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
   height: fit-content;
-  color: ${({ color }) => color || '#000'};
+  color: ${({ color }) => color || colors.white};
   font-family: ${fonts.SansSemiBold};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const H4 = styled.h4<HeadingProps>`
-  font-size: ${({ size }) => size || '23px'};
+  font-size: ${({ size }) => size || "23px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
   height: fit-content;
-  color: ${({ color }) => color || '#000'};
+  color: ${({ color }) => color || colors.white};
   font-family: ${fonts.SansSemiBold};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const Body = styled.p<HeadingProps>`
-  font-size: ${({ size }) => size || '20px'};
+  font-size: ${({ size }) => size || "20px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
   height: fit-content;
-  color: ${({ color }) => color || '#000'};
+  color: ${({ color }) => color || colors.white};
   font-family: ${fonts.SansRegular};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const P1 = styled.p<HeadingProps>`
-  font-size: ${({ size }) => size || '18px'};
+  font-size: ${({ size }) => size || "18px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
   height: fit-content;
-  color: ${({ color }) => color || '#000'};
+  color: ${({ color }) => color || colors.white};
   font-family: ${fonts.SansLight};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 export const P2 = styled.p<HeadingProps>`
-  font-size: ${({ size }) => size || '14px'};
+  font-size: ${({ size }) => size || "14px"};
   font-style: normal;
-  line-height: ${({ lineheight }) => lineheight || 'normal'};
-  margin: ${({ margin }) => margin || '0'};
-  padding: ${({ padding }) => padding || '0'};
-  text-align: ${({ align }) => align || 'left'};
-  color: ${({ color }) => color || '#000'};
+  line-height: ${({ lineheight }) => lineheight || "normal"};
+  margin: ${({ margin }) => margin || "0"};
+  padding: ${({ padding }) => padding || "0"};
+  text-align: ${({ align }) => align || "left"};
+  color: ${({ color }) => color || colors.white};
   height: fit-content;
   font-family: ${fonts.SansRegular};
-  text-transform: ${({ transform }) => transform || ''};
-  letter-spacing: ${({ spacing }) => spacing || 'normal'};
-`
+  text-transform: ${({ transform }) => transform || ""};
+  letter-spacing: ${({ spacing }) => spacing || "normal"};
+`;
 
 interface FlexProps {
   alignitems?:
-    | 'stretch'
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'baseline'
-    | ''
+    | "stretch"
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "baseline"
+    | "";
   justifycontent?:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | ''
-  gap?: string
-  width?: string
-  height?: string
-  flexwrap?: string
-  padding?: string
-  margin?: string
-  fontfamily?: string
-  disabled?: boolean
-  cursor?: string
-  backgroundColor?: string
-  borderRadius?: string
-  flexDirection?: string
-  zindex?: number
-  position?: 'relative' | 'absolute'
+    | "flex-start"
+    | "flex-end"
+    | "center"
+    | "space-between"
+    | "space-around"
+    | "space-evenly"
+    | "";
+  gap?: string;
+  width?: string;
+  height?: string;
+  flexwrap?: string;
+  padding?: string;
+  margin?: string;
+  fontfamily?: string;
+  disabled?: boolean;
+  cursor?: string;
+  backgroundColor?: string;
+  borderRadius?: string;
+  flexDirection?: string;
+  zindex?: number;
+  position?: "relative" | "absolute";
 }
 
 export const FlexRow = styled.div<FlexProps>`
   display: flex;
   flex-direction: ${({ flexDirection }) =>
-    flexDirection ? flexDirection : 'row'};
+    flexDirection ? flexDirection : "row"};
   justify-content: ${({ justifycontent }) =>
-    justifycontent ? justifycontent : 'center'};
-  align-items: ${({ alignitems }) => (alignitems ? alignitems : 'center')};
-  gap: ${({ gap }) => (gap ? gap : '')};
-  flex-wrap: ${({ flexwrap }) => (flexwrap ? flexwrap : '')};
-  width: ${({ width }) => (width ? width : '')};
-  height: ${({ height }) => (height ? height : '')};
-  padding: ${({ padding }) => (padding ? padding : '')};
-  margin: ${({ margin }) => (margin ? margin : '')};
+    justifycontent ? justifycontent : "center"};
+  align-items: ${({ alignitems }) => (alignitems ? alignitems : "center")};
+  gap: ${({ gap }) => (gap ? gap : "")};
+  flex-wrap: ${({ flexwrap }) => (flexwrap ? flexwrap : "")};
+  width: ${({ width }) => (width ? width : "")};
+  height: ${({ height }) => (height ? height : "")};
+  padding: ${({ padding }) => (padding ? padding : "")};
+  margin: ${({ margin }) => (margin ? margin : "")};
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : ''};
-  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : '')};
-  cursor: ${({ cursor }) => (cursor ? cursor : 'auto')};
-  z-index: ${({ zindex }) => zindex || ''};
-  position: ${({ position }) => position || ''};
-`
+    backgroundColor ? backgroundColor : ""};
+  border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : "")};
+  cursor: ${({ cursor }) => (cursor ? cursor : "auto")};
+  z-index: ${({ zindex }) => zindex || ""};
+  position: ${({ position }) => position || ""};
+`;
 export const FlexColumn = styled.div<FlexProps>`
   display: flex;
   flex-direction: column;
   justify-content: ${({ justifycontent }) =>
-    justifycontent ? justifycontent : 'center'};
-  align-items: ${({ alignitems }) => (alignitems ? alignitems : 'center')};
-  gap: ${({ gap }) => (gap ? gap : '')};
-  flex-wrap: ${({ flexwrap }) => (flexwrap ? flexwrap : '')};
-  width: ${({ width }) => (width ? width : '')};
-  height: ${({ height }) => (height ? height : '')};
-  padding: ${({ padding }) => (padding ? padding : '')};
-  margin: ${({ margin }) => (margin ? margin : '')};
+    justifycontent ? justifycontent : "center"};
+  align-items: ${({ alignitems }) => (alignitems ? alignitems : "center")};
+  gap: ${({ gap }) => (gap ? gap : "")};
+  flex-wrap: ${({ flexwrap }) => (flexwrap ? flexwrap : "")};
+  width: ${({ width }) => (width ? width : "")};
+  height: ${({ height }) => (height ? height : "")};
+  padding: ${({ padding }) => (padding ? padding : "")};
+  margin: ${({ margin }) => (margin ? margin : "")};
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : ''};
-  position: ${({ position }) => position || ''};
-`
+    backgroundColor ? backgroundColor : ""};
+  position: ${({ position }) => position || ""};
+`;
 
 interface SVGWrapperProps {
-  width?: string
-  height?: string
-  fill?: string
-  stroke?: string
-  cursor?: 'pointer' | 'not-allowed'
+  width?: string;
+  height?: string;
+  fill?: string;
+  stroke?: string;
+  cursor?: "pointer" | "not-allowed";
 }
 
 export const SVGWrapper = styled.div<SVGWrapperProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: ${({ cursor }) => cursor || ''};
+  cursor: ${({ cursor }) => cursor || ""};
   svg {
-    width: ${({ width }) => width || 'fit-content'};
-    height: ${({ height }) => height || 'fit-content'};
+    width: ${({ width }) => width || "fit-content"};
+    height: ${({ height }) => height || "fit-content"};
     path {
-      fill: ${({ fill }) => fill || ''};
-      stroke: ${({ stroke }) => stroke || ''};
+      fill: ${({ fill }) => fill || ""};
+      stroke: ${({ stroke }) => stroke || ""};
     }
   }
-`
+`;
 export const SVGWrapperHighlight = styled(SVGWrapper)`
   &:hover svg path {
     transition: fill 0.3s ease;
@@ -211,18 +224,25 @@ export const SVGWrapperHighlight = styled(SVGWrapper)`
     transition: fill 0.3s ease;
     fill: ${colors.primary};
   }
-`
+`;
 
 export const Divider = styled.div`
   background: var(--border_color, #efefef);
   height: 1px;
   width: 100%;
-`
+`;
 export const VDivider = styled.div`
   background: var(--border_color, #efefef);
   width: 1px;
   height: 100%;
-`
+`;
+
+export const ImageWrapper = styled.img<{ height?; width? }>`
+  height: ${({ height }) => (height ? height : "auto")};
+  width: ${({ width }) => (width ? width : "100%")};
+  object-fit: contain;
+  /* aspect-ratio: 1; */
+`;
 
 export const PlanCountTag = styled.div`
   display: flex;
@@ -236,13 +256,13 @@ export const PlanCountTag = styled.div`
   border-radius: 3px;
   background: ${colors.primary};
   color: var(--white, var(--background-panels, #fff));
-  font-feature-settings: 'clig' off, 'liga' off;
+  font-feature-settings: "clig" off, "liga" off;
   font-family: ${fonts.SansRegular};
   font-size: 10px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-`
+`;
 
 export const Status = styled.div<{ bg?; fcolor?; noBorder?; fSize?; width? }>`
   display: flex;
@@ -250,41 +270,41 @@ export const Status = styled.div<{ bg?; fcolor?; noBorder?; fSize?; width? }>`
   align-items: center;
   gap: 6px;
   width: ${({ width }) => (width ? width : null)};
-  color: ${({ fcolor }) => (fcolor ? fcolor : '#000')};
+  color: ${({ fcolor }) => (fcolor ? fcolor : colors.white)};
   white-space: nowrap;
   padding: 2px 10px;
-  font-size: ${({ fSize }) => (fSize ? fSize : '12.8px')};
+  font-size: ${({ fSize }) => (fSize ? fSize : "12.8px")};
   line-height: 120%; /* 14.4px */
   border-radius: 12px;
   border: ${({ noBorder, bg }) =>
-    noBorder ? `1px solid ${bg}` : '1px solid #0944FF'};
-  background: ${({ bg }) => (bg ? bg : '#fff')};
+    noBorder ? `1px solid ${bg}` : "1px solid #0944FF"};
+  background: ${({ bg }) => (bg ? bg : "#fff")};
   text-transform: capitalize;
-`
+`;
 
 export const StatusGrid = styled.div<{
-  bg?
-  fcolor?
-  noBorder?
-  fSize?
-  width?
+  bg?;
+  fcolor?;
+  noBorder?;
+  fSize?;
+  width?;
 }>`
   display: grid;
   grid-template-columns: 1fr 40px;
   align-items: center;
   gap: 6px;
   width: ${({ width }) => (width ? width : null)};
-  color: ${({ fcolor }) => (fcolor ? fcolor : '#000')};
+  color: ${({ fcolor }) => (fcolor ? fcolor : colors.white)};
   white-space: nowrap;
   padding: 2px 10px;
-  font-size: ${({ fSize }) => (fSize ? fSize : '12.8px')};
+  font-size: ${({ fSize }) => (fSize ? fSize : "12.8px")};
   line-height: 120%; /* 14.4px */
   border-radius: 12px;
   border: ${({ noBorder, bg }) =>
-    noBorder ? `1px solid ${bg}` : '1px solid #0944FF'};
-  background: ${({ bg }) => (bg ? bg : '#fff')};
+    noBorder ? `1px solid ${bg}` : "1px solid #0944FF"};
+  background: ${({ bg }) => (bg ? bg : "#fff")};
   text-transform: capitalize;
-`
+`;
 
 export const RecommendedTag = styled.div`
   display: flex;
@@ -300,7 +320,7 @@ export const RecommendedTag = styled.div`
   @media (max-width: ${screenSizesPx.tablet}) {
     width: 180px;
   }
-`
+`;
 
 export const LoadMoreButton = styled.button`
   display: flex;
@@ -324,13 +344,13 @@ export const LoadMoreButton = styled.button`
   cursor: pointer;
   text-decoration: none;
   position: relative;
-`
+`;
 export const toolTipTheme = {
-  padding: '5px 10px',
+  padding: "5px 10px",
   fontWeight: 500,
-  fontSize: '10px',
+  fontSize: "10px",
   backgroundColor: colors.primary,
-}
+};
 
 const upAndRight = keyframes`
   0%, 100% {
@@ -342,7 +362,7 @@ const upAndRight = keyframes`
     filter: blur(4px);
   }
 
-`
+`;
 
 const upAndLeft = keyframes`
   0%, 100% {
@@ -353,13 +373,13 @@ const upAndLeft = keyframes`
     transform: translate(-20%, -20%); // left and top
     filter: blur(4px);
   }
-`
+`;
 
 export const AnimatedCoin = styled.img<{
-  bottom?: string
-  right?: string
-  left?: string
-  isUp?: boolean
+  bottom?: string;
+  right?: string;
+  left?: string;
+  isUp?: boolean;
 }>`
   position: absolute;
   height: 150px;
@@ -370,15 +390,14 @@ export const AnimatedCoin = styled.img<{
   animation: ${({ isUp }) => (isUp ? upAndLeft : upAndRight)} 6s ease-in-out
     infinite;
   opacity: 0.5;
-`
+`;
 
 export const GoldCoin = styled.img<{ bottom: string; left: string }>`
   position: absolute;
   bottom: ${({ bottom }) => bottom};
   left: ${({ left }) => left};
   animation: ${upAndLeft} 6s ease-in-out infinite;
-`
-
+`;
 
 export const FormikForm = styled(Form)`
   display: flex;
@@ -421,4 +440,4 @@ export const FormikForm = styled(Form)`
   @media (max-width: ${screenSizesPx.tablet}) {
     margin-bottom: 70px;
   }
-`
+`;

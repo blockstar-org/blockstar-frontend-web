@@ -32,7 +32,7 @@ export const loginApi = createApi({
         body: payload,
       }),
     }),
-    verifyOtp: builder.mutation<void, void>({
+    verifyOtp: builder.mutation<any, any>({
       query: (payload) => ({
         url: `auth/user/verify-otp`,
         method: "post",

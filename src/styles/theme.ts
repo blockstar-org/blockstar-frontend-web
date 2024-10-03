@@ -10,6 +10,7 @@ export const colors = {
   grayLight:'#D0D5DD',
   white:'#FFFFFF',
   black:'#000000',
+  darkpurple: '#2F304E'
 }
 
 export const fonts = {

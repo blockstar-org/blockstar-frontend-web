@@ -76,7 +76,7 @@ const ButtonContainer = styled.button<Props>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border-radius: 7px;
+  border-radius: 15px;
   background: ${({ secondary }) => (secondary == 'true' ? colors.primary : colors.secondary)};
   border: 1px solid
     ${({ secondary }) => (secondary == 'true' ? '#E9F1FF' : 'transparent')};
