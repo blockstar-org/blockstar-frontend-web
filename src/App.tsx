@@ -7,6 +7,9 @@ import { Home } from "./pages/home/Home";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 import { ChangePassword } from "./pages/login/ChangePassword";
 import { Profile } from "./pages/profile/Profile";
+import { WithSidebar } from "./components/sidebar/WithSidebar";
+
+const HomeWithSidebar = WithSidebar(Home);
 
 const router = createBrowserRouter([
   {
@@ -16,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>, // Your Home component or content
+        element: <HomeWithSidebar/>, // Your Home component or content
       },
       {
         path: "/login",
@@ -24,8 +27,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile />, 
-      }
+        element: <Profile />,
+      },
     ],
   },
 ]);
