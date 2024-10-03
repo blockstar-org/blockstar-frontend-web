@@ -42,10 +42,12 @@ export const Login = () => {
   const handleLogin = async (values) => {
     try {
       const token = await login(values).unwrap();
-      if (token?.data?.data?.accessToken) {
+      console.log({token});
+      
+      if (token?.data?.accessToken) {
         localStorage.setItem(
           variables.accessToken,
-          token?.data?.data?.accessToken
+          token?.data?.accessToken
         );
         notify("Logged in successfully");
         navigate("/");
