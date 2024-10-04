@@ -1,6 +1,17 @@
+import { useState } from "react";
+import styled from "styled-components";
 import { images } from "../../assets/images";
-import { ArticleIcon, CalenderIcon } from "../../assets/svgs/svg";
+import {
+  ArticleIcon,
+  CalenderIcon,
+  MicIcon,
+  PersonaIcon,
+  TimerIcon,
+} from "../../assets/svgs/svg";
 import Button from "../../components/button/Button";
+import CustomModal from "../../components/customModal/CustomModal";
+import { CustomInput } from "../../components/InputComponent/CustomInput";
+import { TextInput } from "../../components/InputComponent/TextInput";
 import { ProgressBar } from "../../components/progressBar/ProgressBar";
 import {
   FlexColumn,
@@ -8,7 +19,7 @@ import {
   ImageWrapper,
   P1,
   P2,
-  SVGWrapper
+  SVGWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
 import {
@@ -19,10 +30,12 @@ import {
   GridTab,
   VericalLine,
   VideoCreatedDetails,
-  VideoProgressBar
+  VideoProgressBar,
 } from "./explore.style";
 
 export const Explore = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   return (
     <Container>
       {/* Create */}
@@ -33,7 +46,7 @@ export const Explore = () => {
       >
         <P2 size="28px">Explore</P2>
         <FlexRow gap="10px" justifycontent="flex-start">
-          <CreateCard>
+          <CreateCard onClick={() => setOpenModal(true)}>
             <ImageWrapper
               src={images.news}
               alt="news"
@@ -42,7 +55,7 @@ export const Explore = () => {
             />
             <P1>Create Videos From News</P1>
           </CreateCard>
-          <CreateCard>
+          <CreateCard onClick={() => setOpenModal(true)}>
             <SVGWrapper height={"48px"} width={"48px"}>
               <ArticleIcon />
             </SVGWrapper>
@@ -203,6 +216,64 @@ export const Explore = () => {
           </CreationVideo>
         </GridTab>
       </FlexColumn>
+
+      {openModal && (
+        <CustomModal showCloseIcon onClose={() => setOpenModal(false)}>
+          <FlexColumn width="100%" alignitems="flex-start" gap="36px">
+            <FlexRow
+              width="100%"
+              gap="30px"
+              alignitems="center"
+              justifycontent="flex-start"
+            >
+              <P2 size="28px">What is your video about?</P2>
+              <P2>Dropdown</P2>
+            </FlexRow>
+
+            <FlexColumn width="100%" alignitems="flex-start" gap="17px">
+              <P2>Add video description</P2>
+              <TextInput placeholder="Enter text to describe the video you wish to create. (Ex: Social Selling 101 with)" />
+              <TagGrid>
+                <Tag>
+                  <SVGWrapper height="20px" width="20px">
+                    <PersonaIcon />
+                  </SVGWrapper>
+                  <P2>CEO</P2>
+                </Tag>
+                <Tag>
+                  <SVGWrapper height="20px" width="20px">
+                    <MicIcon />
+                  </SVGWrapper>
+                  <P2>Professional voice</P2>
+                </Tag>
+                <Tag>
+                  <SVGWrapper height="20px" width="20px">
+                    <TimerIcon />
+                  </SVGWrapper>
+                  <P2>2 min</P2>
+                </Tag>
+              </TagGrid>
+            </FlexColumn>
+            <Button text="Submit" style={{ width: "100%" }} />
+          </FlexColumn>
+        </CustomModal>
+      )}
     </Container>
   );
 };
+
+const TagGrid = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 16px;
+`;
+
+const Tag = styled.div`
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  gap: 4px;
+  border-radius: var(--border-radius, 8px);
+  border: var(--Stroke_br_normal, 1px) solid ${colors.gray};
+  background: ${colors.primary};
+`;
