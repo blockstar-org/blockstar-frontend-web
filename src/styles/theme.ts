@@ -17,7 +17,8 @@ export const colors = {
     rgba(215, 237, 237, 0.16) -47.79%,
     rgba(204, 235, 235, 0) 100%
   )`,
-  gradientPink: `linear-gradient(92deg, #3E3EAF 0.24%, #DC64F7 99.74%)`
+  gradientPink: `linear-gradient(92deg, #3E3EAF 0.24%, #DC64F7 99.74%)`,
+  transparent: 'rgba(0, 0, 0, 0.65)'
 };
 
 export const fonts = {

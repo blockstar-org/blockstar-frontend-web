@@ -1,4 +1,3 @@
-import path from "path";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
@@ -7,19 +6,18 @@ import {
   HomeIcon,
   MyVideoIcon,
   NotificationIcon,
-  PersonaIcon,
+  PersonaIcon
 } from "../../assets/svgs/svg";
 import {
   FlexColumn,
   FlexRow,
   ImageWrapper,
   P2,
-  SVGWrapper,
+  SVGWrapper
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
 import Button from "../button/Button";
 import { CustomInput } from "../InputComponent/CustomInput";
-import { InputComponent } from "../InputComponent/InputComponent";
 
 export const WithSidebar = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -39,28 +37,28 @@ export const WithSidebar = <P extends object>(
             <SVGWrapper>
               <ExploreIcon />
             </SVGWrapper>
-            <P2>Explore</P2>
+            <P2 size="16px">Explore</P2>
           </RouteBlock>
 
           <RouteBlock isSelected={pathname == "/my-videos"}>
             <SVGWrapper>
               <MyVideoIcon />
             </SVGWrapper>
-            <P2>My Videos</P2>
+            <P2 size="16px">My Videos</P2>
           </RouteBlock>
 
           <RouteBlock isSelected={pathname == "/persona"}>
             <SVGWrapper>
               <PersonaIcon />
             </SVGWrapper>
-            <P2>Persona</P2>
+            <P2 size="16px">Persona</P2>
           </RouteBlock>
 
           <RouteBlock isSelected={pathname == "/notifications"}>
             <SVGWrapper>
               <NotificationIcon />
             </SVGWrapper>
-            <P2>Notifications</P2>
+            <P2 size="16px">Notifications</P2>
           </RouteBlock>
           <Button text="+ Create Video" style={{ width: "100%" }} />
         </SidebarWrapper>
