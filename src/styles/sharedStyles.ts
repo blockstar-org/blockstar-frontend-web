@@ -352,52 +352,6 @@ export const toolTipTheme = {
   backgroundColor: colors.primary,
 };
 
-const upAndRight = keyframes`
-  0%, 100% {
-    transform: translateY(0);
-    filter: blur(0);
-  }
-  50% {
-    transform: translate(10%, -40%); //right and top
-    filter: blur(4px);
-  }
-
-`;
-
-const upAndLeft = keyframes`
-  0%, 100% {
-    transform: translate(0, 0);
-    filter: blur(0);
-  }
-  50% {
-    transform: translate(-20%, -20%); // left and top
-    filter: blur(4px);
-  }
-`;
-
-export const AnimatedCoin = styled.img<{
-  bottom?: string;
-  right?: string;
-  left?: string;
-  isUp?: boolean;
-}>`
-  position: absolute;
-  height: 150px;
-  width: 150px;
-  bottom: ${({ bottom }) => bottom};
-  right: ${({ right }) => right};
-  left: ${({ left }) => left};
-  animation: ${({ isUp }) => (isUp ? upAndLeft : upAndRight)} 6s ease-in-out
-    infinite;
-  opacity: 0.5;
-`;
-
-export const GoldCoin = styled.img<{ bottom: string; left: string }>`
-  position: absolute;
-  bottom: ${({ bottom }) => bottom};
-  left: ${({ left }) => left};
-  animation: ${upAndLeft} 6s ease-in-out infinite;
-`;
 
 export const FormikForm = styled(Form)`
   display: flex;
@@ -441,3 +395,5 @@ export const FormikForm = styled(Form)`
     margin-bottom: 70px;
   }
 `;
+
+

@@ -1,24 +1,32 @@
+import path from "path";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
 import {
   ExploreIcon,
+  HomeIcon,
   MyVideoIcon,
   NotificationIcon,
   PersonaIcon,
 } from "../../assets/svgs/svg";
 import {
   FlexColumn,
+  FlexRow,
   ImageWrapper,
   P2,
   SVGWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
 import Button from "../button/Button";
+import { CustomInput } from "../InputComponent/CustomInput";
+import { InputComponent } from "../InputComponent/InputComponent";
 
 export const WithSidebar = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
   return (props) => {
+    const { pathname } = useLocation();
+
     return (
       <Container>
         <SidebarWrapper>
@@ -27,25 +35,28 @@ export const WithSidebar = <P extends object>(
             alt="logo"
             style={{ marginBottom: "10px" }}
           />
-          <RouteBlock>
+          <RouteBlock isSelected={pathname == "/"}>
             <SVGWrapper>
               <ExploreIcon />
             </SVGWrapper>
             <P2>Explore</P2>
           </RouteBlock>
-          <RouteBlock>
+
+          <RouteBlock isSelected={pathname == "/my-videos"}>
             <SVGWrapper>
               <MyVideoIcon />
             </SVGWrapper>
             <P2>My Videos</P2>
           </RouteBlock>
-          <RouteBlock>
+
+          <RouteBlock isSelected={pathname == "/persona"}>
             <SVGWrapper>
               <PersonaIcon />
             </SVGWrapper>
             <P2>Persona</P2>
           </RouteBlock>
-          <RouteBlock>
+
+          <RouteBlock isSelected={pathname == "/notifications"}>
             <SVGWrapper>
               <NotificationIcon />
             </SVGWrapper>
@@ -54,7 +65,25 @@ export const WithSidebar = <P extends object>(
           <Button text="+ Create Video" style={{ width: "100%" }} />
         </SidebarWrapper>
 
-        <WrappedComponent {...props} />
+        <FlexColumn justifycontent="flex-start" alignitems="flex-start">
+          <GlobalSearchWrapper>
+            <FlexRow gap="20px" justifycontent="flex-start">
+              <SVGWrapper>
+                <HomeIcon />
+              </SVGWrapper>
+              <CustomInput />
+            </FlexRow>
+            <FlexRow gap="6px">
+              <P2>Phillipe</P2>
+              <ImageWrapper
+                src={images.demoImage}
+                alt="demoimage"
+                style={{ borderRadius: "50%" }}
+              />
+            </FlexRow>
+          </GlobalSearchWrapper>
+          <WrappedComponent {...props} />
+        </FlexColumn>
       </Container>
     );
   };
@@ -77,18 +106,30 @@ const SidebarWrapper = styled.div`
   border-right: var(--Stroke_br_normal, 1px) solid rgba(71, 84, 103, 0.5);
 `;
 
-const RouteBlock = styled.div`
+const RouteBlock = styled.div<{ isSelected? }>`
   width: 100%;
   display: flex;
   gap: 16px;
-  /* max-height: 47.2px; */
-  padding: 7.6px 13.6px;
+  height: 42px;
+  padding: 8px 13px 8px 13px;
   align-items: center;
   gap: 16px;
   align-self: stretch;
   border-radius: 10px;
   cursor: pointer;
+  background: ${({ isSelected }) => isSelected && colors.gradientGrey};
   &:hover {
     background: ${colors.gradientGrey};
   }
+`;
+
+const GlobalSearchWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 60px;
+  padding: 11.5px 16px 12.5px 16px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  border-bottom: var(--Stroke_br_normal, 1px) solid rgba(71, 84, 103, 0.5);
 `;
