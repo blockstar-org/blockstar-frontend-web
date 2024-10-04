@@ -15,7 +15,9 @@ import {
   Container,
   CreateCard,
   CreationVideo,
+  DetailTag,
   GridTab,
+  VericalLine,
   VideoCreatedDetails,
   VideoProgressBar
 } from "./explore.style";
@@ -57,6 +59,7 @@ export const Explore = () => {
       >
         <P2>Current Videos Upload Status</P2>
         <VideoProgressBar>
+          <VericalLine color={colors.teal} />
           <FlexRow gap="24px">
             <FlexRow gap="22px">
               <ImageWrapper
@@ -97,6 +100,8 @@ export const Explore = () => {
       </FlexColumn>
       {/* Created Videos */}
       <VideoCreatedDetails>
+        <DetailTag>Created Videos Detail</DetailTag>
+        <VericalLine color={colors.fuchsia} />
         <GridTab>
           <FlexColumn gap="5px" alignitems="flex-start">
             <P1 size="20px">21017523</P1>
