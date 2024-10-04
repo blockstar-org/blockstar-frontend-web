@@ -1,5 +1,5 @@
 import { images } from "../../assets/images";
-import { ArticleIcon } from "../../assets/svgs/svg";
+import { ArticleIcon, CalenderIcon } from "../../assets/svgs/svg";
 import Button from "../../components/button/Button";
 import { ProgressBar } from "../../components/progressBar/ProgressBar";
 import {
@@ -8,10 +8,19 @@ import {
   ImageWrapper,
   P1,
   P2,
-  SVGWrapper,
+  SVGWrapper
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
-import { Container, CreateCard, VideoProgressBar } from "./explore.style";
+import {
+  Container,
+  CreateCard,
+  CreationVideo,
+  DetailTag,
+  GridTab,
+  VericalLine,
+  VideoCreatedDetails,
+  VideoProgressBar
+} from "./explore.style";
 
 export const Explore = () => {
   return (
@@ -50,6 +59,7 @@ export const Explore = () => {
       >
         <P2>Current Videos Upload Status</P2>
         <VideoProgressBar>
+          <VericalLine color={colors.teal} />
           <FlexRow gap="24px">
             <FlexRow gap="22px">
               <ImageWrapper
@@ -85,8 +95,113 @@ export const Explore = () => {
               <ProgressBar width="30%" />
             </FlexColumn>
           </FlexRow>
-          <Button text="In progress"/>
+          <Button text="In progress" />
         </VideoProgressBar>
+      </FlexColumn>
+      {/* Created Videos */}
+      <VideoCreatedDetails>
+        <DetailTag>Created Videos Detail</DetailTag>
+        <VericalLine color={colors.fuchsia} />
+        <GridTab>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Total videos Created
+            </P2>
+          </FlexColumn>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Total videos uploaded
+            </P2>
+          </FlexColumn>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Total Videos created not uploaded
+            </P2>
+          </FlexColumn>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Total short videos
+            </P2>
+          </FlexColumn>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Videos created and uploaded by cto
+            </P2>
+          </FlexColumn>
+          <FlexColumn gap="5px" alignitems="flex-start">
+            <P1 size="20px">21017523</P1>
+            <P2 size="12px" color={colors.grayLight}>
+              Videos created and uploaded by ceo
+            </P2>
+          </FlexColumn>
+        </GridTab>
+      </VideoCreatedDetails>
+      {/* Creations */}
+      <FlexColumn
+        justifycontent="flex-start"
+        alignitems="flex-start"
+        gap="18px"
+        width="100%"
+      >
+        <P2>Creations</P2>
+        <GridTab gap="24px">
+          <CreationVideo>
+            <ImageWrapper src={images.thumbnail} alt="thumbnail" />
+            <FlexRow width="100%" justifycontent="space-between">
+              <P2 color={colors.grayLight}>Video Name</P2>
+              <FlexRow gap="10px">
+                <SVGWrapper>
+                  <CalenderIcon />
+                </SVGWrapper>
+                <P2 color={colors.grayLight}>Created Date: 22-12-2025</P2>
+              </FlexRow>
+            </FlexRow>
+          </CreationVideo>
+
+          <CreationVideo>
+            <ImageWrapper src={images.thumbnail} alt="thumbnail" />
+            <FlexRow width="100%" justifycontent="space-between">
+              <P2 color={colors.grayLight}>Video Name</P2>
+              <FlexRow gap="10px">
+                <SVGWrapper>
+                  <CalenderIcon />
+                </SVGWrapper>
+                <P2 color={colors.grayLight}>Created Date: 22-12-2025</P2>
+              </FlexRow>
+            </FlexRow>
+          </CreationVideo>
+
+          <CreationVideo>
+            <ImageWrapper src={images.thumbnail} alt="thumbnail" />
+            <FlexRow width="100%" justifycontent="space-between">
+              <P2 color={colors.grayLight}>Video Name</P2>
+              <FlexRow gap="10px">
+                <SVGWrapper>
+                  <CalenderIcon />
+                </SVGWrapper>
+                <P2 color={colors.grayLight}>Created Date: 22-12-2025</P2>
+              </FlexRow>
+            </FlexRow>
+          </CreationVideo>
+
+          <CreationVideo>
+            <ImageWrapper src={images.thumbnail} alt="thumbnail" />
+            <FlexRow width="100%" justifycontent="space-between">
+              <P2 color={colors.grayLight}>Video Name</P2>
+              <FlexRow gap="10px">
+                <SVGWrapper>
+                  <CalenderIcon />
+                </SVGWrapper>
+                <P2 color={colors.grayLight}>Created Date: 22-12-2025</P2>
+              </FlexRow>
+            </FlexRow>
+          </CreationVideo>
+        </GridTab>
       </FlexColumn>
     </Container>
   );
