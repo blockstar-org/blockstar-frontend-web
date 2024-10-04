@@ -11,13 +11,12 @@ const Layout = () => {
 
   useEffect(() => {
     // Redirect if the user is unauthorized
-    console.log({ error });
 
-    if ((error as FetchBaseQueryError)?.status === 401) {
+    if (!isLoading && (error as FetchBaseQueryError)?.status === 401) {
       localStorage.clear();
       navigate("/login");
     }
-  }, [error, navigate]);
+  }, [error, navigate, isLoading]);
 
   return (
     <div

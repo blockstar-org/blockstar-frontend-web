@@ -11,11 +11,13 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   darkpurple: "#2F304E",
+  darkblue:'#0043CE',
   gradientGrey: `linear-gradient(
     118deg,
     rgba(215, 237, 237, 0.16) -47.79%,
     rgba(204, 235, 235, 0) 100%
   )`,
+  gradientPink: `linear-gradient(92deg, #3E3EAF 0.24%, #DC64F7 99.74%)`
 };
 
 export const fonts = {

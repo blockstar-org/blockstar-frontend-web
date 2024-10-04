@@ -3,13 +3,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/404Page/ErrorPage";
 import { Login } from "./pages/login/Login";
 import Layout from "./components/layout/Layout";
-import { Home } from "./pages/home/Home";
+import { Explore } from "./pages/home/Explore";
 import { ForgotPassword } from "./pages/login/ForgotPassword";
 import { ChangePassword } from "./pages/login/ChangePassword";
 import { Profile } from "./pages/profile/Profile";
 import { WithSidebar } from "./components/sidebar/WithSidebar";
 
-const HomeWithSidebar = WithSidebar(Home);
+const HomeWithSidebar = WithSidebar(Explore);
 
 const router = createBrowserRouter([
   {

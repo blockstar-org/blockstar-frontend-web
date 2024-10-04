@@ -1,0 +1,27 @@
+<svg width="176" height="177" viewBox="0 0 176 177" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_155_8133)">
+<path d="M64 88.5C64 75.2452 74.7452 64.5 88 64.5C101.255 64.5 112 75.2452 112 88.5C112 101.755 101.255 112.5 88 112.5C74.7452 112.5 64 101.755 64 88.5Z" fill="url(#paint0_linear_155_8133)" fill-opacity="0.16"/>
+<path d="M98.3642 80.74C98.0966 79.4772 96.9719 78.638 95.6626 78.7036C94.0806 78.7828 91.6038 78.9667 88.1147 79.3882C84.6257 79.8097 82.1772 80.2209 80.6227 80.5206C79.3362 80.7686 78.4513 81.8507 78.5021 83.1396C78.5577 84.5487 78.7057 86.6794 79.0725 89.6186C79.2384 90.9484 79.4071 92.1069 79.5692 93.1048" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M79.7792 98.059C79.8936 99.3923 80.9345 100.388 82.2697 100.478C83.8857 100.587 86.4249 100.7 90.0238 100.7C93.6227 100.7 96.1619 100.587 97.7778 100.478C99.113 100.388 100.154 99.3923 100.268 98.059C100.387 96.679 100.5 94.6215 100.5 91.7952C100.5 88.9689 100.387 86.9115 100.268 85.5315C100.154 84.1982 99.113 83.2024 97.7778 83.1122C96.1619 83.0031 93.6227 82.8905 90.0238 82.8905C86.4249 82.8905 83.8857 83.0031 82.2697 83.1122C80.9345 83.2024 79.8936 84.1982 79.7792 85.5315C79.6607 86.9115 79.5476 88.9689 79.5476 91.7952C79.5476 94.6215 79.6607 96.679 79.7792 98.059Z" stroke="white" stroke-linejoin="round"/>
+<path d="M86.881 87.0809H82.6905" stroke="white" stroke-linecap="round"/>
+<path d="M86.881 93.3667H82.6905" stroke="white" stroke-linecap="round"/>
+<path d="M97.3572 96.5095H82.6905" stroke="white" stroke-linecap="round"/>
+<path d="M86.881 90.2238H82.6905" stroke="white" stroke-linecap="round"/>
+<path d="M90.0696 92.2261C90.1146 93.1202 90.7941 93.7996 91.6882 93.8447C92.2071 93.8708 92.8701 93.8905 93.6905 93.8905C94.5108 93.8905 95.1738 93.8708 95.6927 93.8447C96.5869 93.7996 97.2663 93.1202 97.3114 92.2261C97.3375 91.7072 97.3571 91.0441 97.3571 90.2238C97.3571 89.4035 97.3375 88.7404 97.3114 88.2215C97.2663 87.3274 96.5869 86.648 95.6927 86.6029C95.1738 86.5768 94.5108 86.5571 93.6905 86.5571C92.8701 86.5571 92.2071 86.5768 91.6882 86.6029C90.7941 86.648 90.1146 87.3274 90.0696 88.2215C90.0434 88.7404 90.0238 89.4035 90.0238 90.2238C90.0238 91.0441 90.0434 91.7072 90.0696 92.2261Z" stroke="white" stroke-linejoin="round"/>
+</g>
+<defs>
+<filter id="filter0_d_155_8133" x="0" y="0.5" width="176" height="176" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset/>
+<feGaussianBlur stdDeviation="32"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.16 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_155_8133"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_155_8133" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_155_8133" x1="50.3636" y1="23.7453" x2="135.211" y2="68.063" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D7EDED"/>
+<stop offset="1" stop-color="#CCEBEB" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
