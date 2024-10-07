@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
 import {
@@ -35,7 +36,7 @@ import {
 
 export const Explore = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   return (
     <Container>
       {/* Create */}
@@ -254,7 +255,11 @@ export const Explore = () => {
                 </Tag>
               </TagGrid>
             </FlexColumn>
-            <Button text="Submit" style={{ width: "100%" }} />
+            <Button
+              text="Submit"
+              style={{ width: "100%" }}
+              onClick={() => navigate("/create-video")}
+            />
           </FlexColumn>
         </CustomModal>
       )}

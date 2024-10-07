@@ -54,10 +54,10 @@ export const GridTab = styled.div<{ gap? }>`
   gap: ${({ gap }) => (gap ? gap : "20px")};
 `;
 
-export const CreationVideo = styled.div`
+export const CreationVideo = styled.div<{height?, width?}>`
   display: flex;
-  width: 359px;
-  height: 267px;
+  width: ${({width})=> width ? width : '359px'};
+  height: ${({height})=> height ? height : '267px'};
   padding: 11px 10px;
   justify-content: center;
   align-items: center;

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
 import {
@@ -6,14 +6,14 @@ import {
   HomeIcon,
   MyVideoIcon,
   NotificationIcon,
-  PersonaIcon
+  PersonaIcon,
 } from "../../assets/svgs/svg";
 import {
   FlexColumn,
   FlexRow,
   ImageWrapper,
   P2,
-  SVGWrapper
+  SVGWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
 import Button from "../button/Button";
@@ -24,7 +24,7 @@ export const WithSidebar = <P extends object>(
 ) => {
   return (props) => {
     const { pathname } = useLocation();
-
+    const navigate = useNavigate();
     return (
       <Container>
         <SidebarWrapper>
@@ -33,7 +33,10 @@ export const WithSidebar = <P extends object>(
             alt="logo"
             style={{ marginBottom: "10px" }}
           />
-          <RouteBlock isSelected={pathname == "/"}>
+          <RouteBlock
+            isSelected={pathname == "/"}
+            onClick={() => navigate("/")}
+          >
             <SVGWrapper>
               <ExploreIcon />
             </SVGWrapper>
