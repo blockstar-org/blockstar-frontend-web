@@ -5,6 +5,7 @@ import article from "./images/article.svg";
 import news from "./images/news.svg";
 import demoVideoImage from "./images/demoVideoImage.svg";
 import thumbnail from "./images/thumbnail.svg";
+import generatedVideo from "./images/generatedVideo.svg";
 export const images = {
   loginImage,
   blockStarLogo,
@@ -12,5 +13,6 @@ export const images = {
   article,
   news,
   demoVideoImage,
-  thumbnail
+  thumbnail,
+  generatedVideo
 };
