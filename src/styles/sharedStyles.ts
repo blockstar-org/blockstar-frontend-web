@@ -240,7 +240,7 @@ export const VDivider = styled.div`
 export const ImageWrapper = styled.img<{ height?; width? }>`
   height: ${({ height }) => (height ? height : "auto")};
   width: ${({ width }) => (width ? width : "100%")};
-  object-fit: contain;
+  object-fit: cover;
   /* aspect-ratio: 1; */
 `;
 

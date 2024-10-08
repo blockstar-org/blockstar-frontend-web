@@ -3,7 +3,7 @@ import { colors, fonts } from "../../styles/theme";
 
 export const Container = styled.div`
   width: 100%;
-  height: calc( 100vh - 60px);
+  height: calc(100vh - 60px);
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -99,6 +99,7 @@ export const GridTab = styled.div<{ gap? }>`
 `;
 
 export const CreationVideo = styled.div<{ height?; width? }>`
+  position: relative;
   display: flex;
   width: ${({ width }) => (width ? width : "359px")};
   height: ${({ height }) => (height ? height : "267px")};
@@ -107,4 +108,27 @@ export const CreationVideo = styled.div<{ height?; width? }>`
   flex-direction: column;
   flex-shrink: 0;
   gap: 8px;
+`;
+
+export const SelectDefault = styled.div<{ isSelected? }>`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  padding: 5px 7px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: var(--border-radius, 8px);
+  border: var(--Stroke_br_lt-2, 0.5px) solid
+    ${({ isSelected }) => (isSelected ? colors.white : colors.gray)};
+  background: ${({ isSelected }) =>
+    isSelected ? colors.secondary : colors.primary};
+  box-shadow: 0px -2px 6px 0px rgba(0, 0, 0, 0.11);
+  cursor: pointer;
+  opacity: ${({ isSelected }) => (isSelected ? "1" : "0")};
+  z-index: 999;
+  &:hover {
+    opacity: 1;
+  }
 `;

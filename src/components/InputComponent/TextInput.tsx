@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import { colors, fonts } from "../../styles/theme";
 
-export const TextInput = ({placeholder}) => {
+interface TextInputInterface  {
+  placeholder: string,
+  onChange: any,
+  value?: string
+
+}
+export const TextInput = ({placeholder, onChange, value}: TextInputInterface) => {
   return (
     <>
       <Wrapper>
-        <Input  placeholder={placeholder} rows={4} cols={3}/>
+        <Input  placeholder={placeholder} rows={4} cols={3} onChange={onChange} value={value|| ''}/>
       </Wrapper>
     </>
   );

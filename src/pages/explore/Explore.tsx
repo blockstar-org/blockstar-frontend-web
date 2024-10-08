@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
@@ -11,9 +11,23 @@ import {
 } from "../../assets/svgs/svg";
 import Button from "../../components/button/Button";
 import CustomModal from "../../components/customModal/CustomModal";
+import { Dropdown } from "../../components/dropdown/Dropdown";
 import { CustomInput } from "../../components/InputComponent/CustomInput";
 import { TextInput } from "../../components/InputComponent/TextInput";
 import { ProgressBar } from "../../components/progressBar/ProgressBar";
+import {
+  useGetBrandInfoQuery,
+  useGetVoiceToneQuery,
+} from "../../integration/redux/apis/brandApi";
+import { useGetGeneratedVideoQuery } from "../../integration/redux/apis/scriptApi";
+import { useAppDispatch, useAppSelector } from "../../integration/redux/hooks";
+import {
+  addDescription,
+  setIntroVideoId,
+  setOutroVideoId,
+  setPersonaId,
+} from "../../integration/redux/slice/generateslice";
+import { RootState } from "../../integration/redux/store";
 import {
   FlexColumn,
   FlexRow,
@@ -34,9 +48,65 @@ import {
   VideoProgressBar,
 } from "./explore.style";
 
+const voiceOtions = ["Create Video From Articles", "Create Video From News"];
+const roleOtions = ["CEO", "CTO"];
+const durationOptions = [
+  "1 min",
+  "2 mins",
+  "3 mins",
+  "5 mins",
+  "10 mins",
+  "15 mins",
+];
 export const Explore = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const navigate = useNavigate();
+  const generateValues = useAppSelector((state: RootState) => state.generate);
+  // const { data: generatedVideo } = useGetGeneratedVideoQuery({
+  //   scriptId: "6703e21841b30efc617bea30",
+  // });
+  const dispatch = useAppDispatch();
+  const [selectedOption, setoption] = useState<string>(voiceOtions[0]);
+  const [selectedRoleOption, setRoleOption] = useState<string>(roleOtions[0]);
+  const [selectedDurationeOption, setDurationOption] = useState<string>(
+    durationOptions[1]
+  );
+  const [script, setScript] = useState<string>("");
+
+  const { data: brandinfo, error } = useGetBrandInfoQuery();
+  const { data: voiceTones, error: voiceToneError } = useGetVoiceToneQuery();
+
+  const handleChange = (e: any) => {
+    setScript(e.target.value);
+    dispatch(addDescription(e.target.value));
+  };
+
+  const handleSelect = (value) => {
+    setoption(value);
+  };
+
+  const handleRoleSelect = (value) => {
+    setRoleOption(value);
+  };
+
+  const handleDurationSelect = (value) => {
+    setDurationOption(value);
+  };
+
+  console.log({ generateValues, voiceTones });
+
+  useEffect(() => {
+    if (brandinfo?.data?.brand?.personas[0]) {
+      dispatch(setPersonaId(brandinfo?.data?.brand?.personas[0]._id));
+      dispatch(
+        setIntroVideoId(brandinfo?.data?.brand?.personas[0].defaultIntroVideoId)
+      );
+      dispatch(
+        setOutroVideoId(brandinfo?.data?.brand?.personas[0].defaultOutroVideoId)
+      );
+    }
+  }, [brandinfo]);
+
   return (
     <Container>
       {/* Create */}
@@ -228,18 +298,35 @@ export const Explore = () => {
               justifycontent="flex-start"
             >
               <P2 size="28px">What is your video about?</P2>
-              <P2>Dropdown</P2>
+              <Dropdown
+                options={voiceOtions}
+                optionText={"Select Creation Mode"}
+                selectedOption={selectedOption}
+                setOption={handleSelect}
+              />
             </FlexRow>
 
             <FlexColumn width="100%" alignitems="flex-start" gap="17px">
               <P2>Add video description</P2>
-              <TextInput placeholder="Enter text to describe the video you wish to create. (Ex: Social Selling 101 with)" />
+              <TextInput
+                placeholder="Enter text to describe the video you wish to create. (Ex: Social Selling 101 with)"
+                onChange={handleChange}
+                value={script}
+              />
               <TagGrid>
                 <Tag>
                   <SVGWrapper height="20px" width="20px">
                     <PersonaIcon />
                   </SVGWrapper>
-                  <P2>CEO</P2>
+                  <Dropdown
+                    options={roleOtions}
+                    selectedOption={selectedRoleOption}
+                    setOption={handleRoleSelect}
+                    optionText="Select Persona"
+                    noBorder
+                    noPadding
+                    noIcon
+                  />
                 </Tag>
                 <Tag>
                   <SVGWrapper height="20px" width="20px">
@@ -251,7 +338,15 @@ export const Explore = () => {
                   <SVGWrapper height="20px" width="20px">
                     <TimerIcon />
                   </SVGWrapper>
-                  <P2>2 min</P2>
+                  <Dropdown
+                    options={durationOptions}
+                    selectedOption={selectedDurationeOption}
+                    setOption={handleDurationSelect}
+                    optionText="Choose the Video Duration"
+                    noBorder
+                    noPadding
+                    noIcon
+                  />
                 </Tag>
               </TagGrid>
             </FlexColumn>
@@ -259,6 +354,11 @@ export const Explore = () => {
               text="Submit"
               style={{ width: "100%" }}
               onClick={() => navigate("/create-video")}
+              disabled={
+                !generateValues.description ||
+                !generateValues.videoFrom ||
+                !generateValues.videoDuration
+              }
             />
           </FlexColumn>
         </CustomModal>
