@@ -117,6 +117,12 @@ export const Explore = () => {
     }
   }, [brandinfo]);
 
+  useEffect(() => {
+    if (voiceTones?.data?.voiceTones) {
+      setVoice(voiceTones?.data?.voiceTones[0]);
+    }
+  }, [voiceTones]);
+
   return (
     <Container>
       {/* Create */}
