@@ -21,6 +21,7 @@ import {
   P1,
   P2,
   SVGWrapper,
+  VideoWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
 import { variables } from "../../utilities/constants";
@@ -281,7 +282,10 @@ export const CreateVideo = () => {
   //     };
   //   }, [scriptId]);
 
-  console.log({ messages });
+  const handleLoadedMetadata = (event: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = event.currentTarget;
+    video.currentTime = 5; // Skip to the specified seconds
+  };
 
   return (
     <Container>
@@ -364,15 +368,22 @@ export const CreateVideo = () => {
                     ))
                   : personaData?.introVideos?.map((data) => (
                       <CreationVideo width={"180px"} height={"125px"}>
-                        <ImageWrapper
+                        {/* <ImageWrapper
                           src={data?.metadata?.url || images.thumbnail}
                           alt="thumbnail"
                           height={"100px"}
                           width="100%"
-                        />
+                        /> */}
+                         <VideoWrapper
+                          height={"100px"}
+                          width="100%"
+                          onLoadedMetadata={handleLoadedMetadata}
+                        >
+                            <source src={data?.metadata?.url} type="video/mp4" />
+                        </VideoWrapper>
                         <FlexRow width="100%" justifycontent="space-between">
                           <P2 color={colors.grayLight} size="13px">
-                            Video Name
+                            {data?.name}
                           </P2>
                         </FlexRow>
                         <SelectDefault
@@ -405,15 +416,17 @@ export const CreateVideo = () => {
                     ))
                   : personaData?.outroVideos?.map((data) => (
                       <CreationVideo width={"180px"} height={"125px"}>
-                        <ImageWrapper
-                          src={data?.metadata?.url || images.thumbnail}
-                          alt="thumbnail"
+                        <VideoWrapper
                           height={"100px"}
                           width="100%"
-                        />
+                          onLoadedMetadata={handleLoadedMetadata}
+
+                        >
+                            <source src={data?.metadata?.url} type="video/mp4" />
+                        </VideoWrapper>
                         <FlexRow width="100%" justifycontent="space-between">
                           <P2 color={colors.grayLight} size="13px">
-                            Video Name
+                            {data?.name}
                           </P2>
                         </FlexRow>
                         <SelectDefault
