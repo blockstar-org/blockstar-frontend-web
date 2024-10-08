@@ -244,6 +244,16 @@ export const ImageWrapper = styled.img<{ height?; width? }>`
   /* aspect-ratio: 1; */
 `;
 
+export const VideoWrapper = styled.video<{ height?: string; width?: string; onLoadedMetadata? }>`
+  height: ${({ height }) => (height ? height : "auto")};
+  width: ${({ width }) => (width ? width : "100%")};
+  object-fit: cover;
+  /* Optional: Set a default aspect ratio for the video */
+  /* aspect-ratio: 16 / 9; */
+  /* Optional: To hide the video controls (can be controlled in JSX as well) */
+  /* controls: false; */
+`;
+
 export const PlanCountTag = styled.div`
   display: flex;
   width: 18px;
