@@ -117,7 +117,7 @@ export const Explore = () => {
       >
         <P2 size="28px">Explore</P2>
         <FlexRow gap="10px" justifycontent="flex-start">
-          <CreateCard onClick={() => setOpenModal(true)}>
+          <CreateCard>
             <ImageWrapper
               src={images.news}
               alt="news"
