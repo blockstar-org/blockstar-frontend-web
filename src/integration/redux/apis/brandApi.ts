@@ -31,7 +31,7 @@ export const brandApi = createApi({
         method: "get",
       }),
     }),
-    getVoiceTone: builder.query<void, void>({
+    getVoiceTone: builder.query<any, void>({
         query: () => ({
           url: `brand/voice-tone`,
           method: "get",

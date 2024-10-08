@@ -5,10 +5,10 @@ import { P2, SVGWrapper } from "../../styles/sharedStyles";
 import { colors, fonts } from "../../styles/theme";
 
 interface DropdopwnProps {
-  options: Array<string>;
+  options: any;
   optionText: string;
   setOption: any;
-  selectedOption: string;
+  selectedOption: any;
   noBorder?: boolean;
   noPadding?: boolean;
   noIcon?: boolean;
@@ -24,13 +24,14 @@ export const Dropdown = ({
   noPadding,
 }: DropdopwnProps) => {
   const [openOptions, setOpenOptions] = useState<boolean>(false);
+  
   return (
     <Wrapper
       onClick={() => setOpenOptions((prev) => !prev)}
       noPadding={noPadding}
       noBorder={noBorder}
     >
-      <P2>{selectedOption}</P2>
+      <P2>{ selectedOption?.name || selectedOption }</P2>
       {!noIcon && (
         <SVGWrapper>
           <DownCaretIcon />
@@ -42,9 +43,9 @@ export const Dropdown = ({
           {options.map((opt) => (
             <Type
               onClick={() => setOption(opt)}
-              isSelected={selectedOption == opt}
+              isSelected={selectedOption?.name == opt?.name || selectedOption == opt }
             >
-              {opt}
+              {opt?.name || opt  }
             </Type>
           ))}
         </OptionWrapper>

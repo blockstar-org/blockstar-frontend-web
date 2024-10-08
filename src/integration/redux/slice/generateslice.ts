@@ -40,11 +40,17 @@ export const generateslice = createSlice({
     },
     setSpeaker: (state, action) => {
         state.speaker = action.payload
+    },
+    setDurationPeriod: (state, action) => {
+        state.videoDuration = action.payload
+    },
+    setVoiceToneId: (state, action) => {
+        state.voiceToneId = action.payload
     }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addDescription, setPersonaId , setIntroVideoId, setOutroVideoId, setSpeaker} = generateslice.actions;
+export const { addDescription, setPersonaId , setIntroVideoId, setOutroVideoId, setSpeaker, setDurationPeriod, setVoiceToneId} = generateslice.actions;
 
 export default generateslice.reducer;
