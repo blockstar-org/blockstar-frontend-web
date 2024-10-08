@@ -14,7 +14,7 @@ import { colors } from "../../styles/theme";
 import { variables } from "../../utilities/constants";
 import { SelectionContainer } from "./createvideo.style";
 
-export const GeneratedVideo = (script) => {
+export const GeneratedVideo = ({script}) => {
   const generateValues = useAppSelector((state: RootState) => state.generate);
   
 
