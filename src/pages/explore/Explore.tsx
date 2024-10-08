@@ -349,7 +349,7 @@ export const Explore = () => {
                     <MicIcon />
                   </SVGWrapper>
                   <Dropdown
-                    options={voiceTones.data.voiceTones}
+                    options={voiceTones?.data?.voiceTones}
                     selectedOption={voice}
                     setOption={handleVoiceSelection}
                     optionText="Select Your Voice Type"
