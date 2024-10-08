@@ -125,6 +125,7 @@ export const Login = () => {
                       disabled={isSubmitting}
                       text="Log in"
                       style={{ width: "100%" }}
+                      loading={isLoading}
                     />
                   </FlexColumn>
                 </Form>

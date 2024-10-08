@@ -289,7 +289,10 @@ export const CreateVideo = () => {
         padding="10px 7px"
         gap="10px"
         style={{ cursor: "pointer" }}
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          if (generatedVideo) setGeneratedVideo(false);
+          else navigate(-1);
+        }}
       >
         <SVGWrapper>
           <BackIcon />
@@ -298,7 +301,7 @@ export const CreateVideo = () => {
       </FlexRow>
       <SelectWrapper>
         {generatedVideo ? (
-          <GeneratedVideo script={messages.scriptData.script}/>
+          <GeneratedVideo script={messages.scriptData.script} />
         ) : (
           <SelectionContainer>
             <CustomInput />
