@@ -44,6 +44,7 @@ export const CreateVideo = () => {
   const [generateVideo, { error: generateError, isLoading: generateloading }] =
     useGenerateVideoMutation();
   const [videoType, setVideoType] = useState<string>("Expert");
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
 
   const [generatedVideo, setGeneratedVideo] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ export const CreateVideo = () => {
 
   const generateScript = async () => {
     try {
+      setIsGenerating(true);
       const script = await generateVideo(generateValues);
       console.log({ script });
       setScriptId(script.data.data.script._id);
@@ -88,151 +90,199 @@ export const CreateVideo = () => {
     }
   }, []);
 
-  const [messages, setMessages] = useState<string[]>([]);
-
-  //   useEffect(() => {
-  //     const startSSE = async () => {
-  //       const response = await fetch(
-  //         `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem(
-  //               variables.accessToken
-  //             )}`, // Add any required headers here
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-
-  //       if (response.ok) {
-  //         // Now open the EventSource connection after authentication
-  //         const eventSource = new EventSource(
-  //           `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`
-  //         );
-
-  //         eventSource.onmessage = (event) => {
-  //           const newMessage = event.data;
-  //           setMessages((prevMessages) => [...prevMessages, newMessage]);
-  //         };
-
-  //         eventSource.onerror = (error) => {
-  //           console.error("EventSource failed:", error);
-  //           eventSource.close(); // Optionally close the connection on error
-  //         };
-
-  //         // Cleanup the connection
-  //         return () => {
-  //           eventSource.close();
-  //         };
-  //       } else {
-  //         console.error("Failed to authenticate or fetch initial data");
-  //       }
-  //     };
-  //     if (scriptId) startSSE();
-  //   }, [scriptId]);
+  const [messages, setMessages] = useState<any>();
 
   useEffect(() => {
-    const token = localStorage.getItem(variables.accessToken); // Replace with the actual token
+    const startSSE = async () => {
+      //   const response = await fetch(
+      //     `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
+      //     {
+      //       method: "GET",
+      //       headers: {
+      //         Authorization: `Bearer ${localStorage.getItem(
+      //           variables.accessToken
+      //         )}`, // Add any required headers here
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   );
 
-    // Using fetch with custom headers to open the connection
-    // const connectToSSE = async () => {
-    //   const response = await fetch(
-    //     `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //         Accept: "text/event-stream",
-    //       },
-    //     }
-    //   );
-
-    //   if (!response.body) {
-    //     console.error("Readable stream not supported in this browser");
-    //     return;
-    //   }
-
-    //   const reader = response.body.getReader();
-    //   const decoder = new TextDecoder();
-
-    //   let buffer = "";
-
-    //   const readStream = async () => {
-    //     const { value, done } = await reader.read();
-
-    //     if (done) {
-    //       console.log("SSE stream closed");
-    //       return;
-    //     }
-
-    //     // Decode the stream and accumulate data
-    //     buffer += decoder.decode(value, { stream: true });
-
-    //     let parts = buffer.split("\n\n"); // Split based on SSE data frames
-    //     buffer = parts.pop() || ""; // Keep any incomplete frame in the buffer
-
-    //     parts.forEach((part) => {
-    //       if (part.startsWith("data: ")) {
-    //         const data = part.slice(6);
-    //         setMessages((prevMessages) => [...prevMessages, data]);
-    //       }
-    //     });
-
-    //     readStream(); // Keep reading the stream
-    //   };
-
-    //   readStream();
-    // };
-    const connectToSSE = () => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open(
-        "GET",
-        `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-        true
+      //   if (response.ok) {
+      // Now open the EventSource connection after authentication
+      const eventSource = new EventSource(
+        `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}?token=${localStorage.getItem(
+          variables.accessToken
+        )}`
       );
-      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-      xhr.setRequestHeader("Accept", "text/event-stream");
 
-      let buffer = "";
+      eventSource.onmessage = (event) => {
+        const newMessage = event.data;
+        console.log({ newMessage });
 
-      // Process the stream and accumulate data
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.LOADING) {
-          buffer += xhr.responseText;
-
-          const parts = buffer.split("\n\n");
-          buffer = parts.pop() || ""; // Store any partial frame in buffer
-
-          parts.forEach((part) => {
-            if (part.startsWith("data: ")) {
-              const data = part.slice(6);
-              setMessages((prevMessages) => [...prevMessages, data]);
-            }
-          });
-        }
+        setMessages(JSON.parse(newMessage));
+        setIsGenerating(false);
+        setIsScript(true);
       };
 
-      // Handle SSE connection close
-      xhr.onerror = () => {
-        console.error("Error occurred during SSE connection");
+      eventSource.onerror = (error) => {
+        console.error("EventSource failed:", error);
+        eventSource.close(); // Optionally close the connection on error
       };
 
-      xhr.send();
+      // Cleanup the connection
+      return () => {
+        eventSource.close();
+      };
+      //   } else {
+      //     console.error("Failed to authenticate or fetch initial data");
+      //   }
     };
-
-    if (scriptId) {
-      connectToSSE();
-    }
-
-    // Clean up on unmount
-    return () => {
-      console.log("Cleaning up");
-    };
+    if (scriptId) startSSE();
   }, [scriptId]);
 
-  console.log({messages});
-  
+  //   useEffect(() => {
+  //     const token = localStorage.getItem(variables.accessToken); // Replace with the actual token
+
+  //     // Using fetch with custom headers to open the connection
+  //     // const connectToSSE = async () => {
+  //     //   const response = await fetch(
+  //     //     `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
+  //     //     {
+  //     //       headers: {
+  //     //         Authorization: `Bearer ${token}`,
+  //     //         Accept: "text/event-stream",
+  //     //       },
+  //     //     }
+  //     //   );
+
+  //     //   if (!response.body) {
+  //     //     console.error("Readable stream not supported in this browser");
+  //     //     return;
+  //     //   }
+
+  //     //   const reader = response.body.getReader();
+  //     //   const decoder = new TextDecoder();
+
+  //     //   let buffer = "";
+
+  //     //   const readStream = async () => {
+  //     //     const { value, done } = await reader.read();
+
+  //     //     if (done) {
+  //     //       console.log("SSE stream closed");
+  //     //       return;
+  //     //     }
+
+  //     //     // Decode the stream and accumulate data
+  //     //     buffer += decoder.decode(value, { stream: true });
+
+  //     //     let parts = buffer.split("\n\n"); // Split based on SSE data frames
+  //     //     buffer = parts.pop() || ""; // Keep any incomplete frame in the buffer
+
+  //     //     parts.forEach((part) => {
+  //     //       if (part.startsWith("data: ")) {
+  //     //         const data = part.slice(6);
+  //     //         setMessages((prevMessages) => [...prevMessages, data]);
+  //     //       }
+  //     //     });
+
+  //     //     readStream(); // Keep reading the stream
+  //     //   };
+
+  //     //   readStream();
+  //     // };
+  //     const connectToSSE = () => {
+  //       const xhr = new XMLHttpRequest();
+
+  //       xhr.open(
+  //         "GET",
+  //         `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
+  //         true
+  //       );
+  //       xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  //       xhr.setRequestHeader("Accept", "text/event-stream");
+
+  //       let buffer = "";
+
+  //       // Process the stream and accumulate data
+  //       xhr.onreadystatechange = () => {
+  //         if (xhr.readyState >= XMLHttpRequest.LOADING) {
+  //           // Log the responseText as it's loading
+  //           console.log(`Received data chunk: ${xhr.responseText}`);
+  //           const cleanedString = xhr.responseText.replace(/^.*?({)/, '$1')
+  //           console.log(
+  //             "filter",
+  //             cleanedString
+  //           );
+  //           if(cleanedString){
+  //             setMessages(cleanedString)
+  //             setIsGenerating(false)
+  //             setIsScript(true)
+  //           }
+
+  //           // Accumulate the response
+  //           buffer += xhr.responseText;
+  //           console.log({ buffer });
+
+  //           // Split the buffer by double newlines
+  //           const parts = buffer.split("\n\n");
+  //           buffer = parts.pop() || ""; // Store any partial frame in buffer
+
+  //           parts.forEach((part) => {
+  //             if (part.startsWith("data: ")) {
+  //               const dataString = part.slice(6); // Get the data part
+  //               console.log("Received event data:", dataString); // Log received message
+
+  //               try {
+  //                 const jsonData = JSON.parse(dataString); // Parse the JSON data
+  //                 console.log({ jsonData });
+
+  //                 setMessages((prevMessages) => [...prevMessages, jsonData]); // Save to state
+  //               } catch (error) {
+  //                 console.error("Error parsing JSON:", error);
+  //               }
+  //             } else {
+  //               // Remove unwanted prefixes
+  //               const cleanedString = part.replace(/event: .*?data:\s*/, "");
+
+  //               // Extract JSON part
+  //               const jsonData = cleanedString.trim(); // Trimming any leading or trailing whitespace
+
+  //               // Parse the JSON
+  //               try {
+  //                 // const parsedData = JSON.parse(jsonData);
+  //                 console.log("Parsed Data:", jsonData); // Log the parsed data
+
+  //                 // Accessing the message
+  //                 // const message = parsedData.message;
+  //                 // console.log("Message:", message);
+  //               } catch (error) {
+  //                 console.error("Error parsing JSON:", error);
+  //               }
+  //             }
+  //           });
+  //         }
+  //       };
+
+  //       xhr.onerror = () => {
+  //         console.error("Error occurred during SSE connection");
+  //       };
+
+  //       xhr.send();
+  //     };
+
+  //     if (scriptId) {
+  //       connectToSSE();
+  //     }
+
+  //     // Clean up on unmount
+  //     return () => {
+  //       console.log("Cleaning up");
+  //     };
+  //   }, [scriptId]);
+
+  console.log({ messages });
+
   return (
     <Container>
       <FlexRow
@@ -380,7 +430,8 @@ export const CreateVideo = () => {
               text="Select To Generate Video Script"
               style={{ width: "100%" }}
               onClick={() => generateScript()}
-              disabled={!generateValues.speaker}
+              disabled={!generateValues.speaker || isGenerating}
+              loading={isGenerating}
             />
           </SelectionContainer>
         )}
@@ -389,6 +440,7 @@ export const CreateVideo = () => {
             setGeneratedVideo={setGeneratedVideo}
             setIsScript={setIsScript}
             onChange={handleChange}
+            script={messages}
           />
         ) : (
           !generatedVideo && (
