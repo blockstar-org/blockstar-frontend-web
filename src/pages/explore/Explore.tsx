@@ -23,9 +23,11 @@ import { useGetGeneratedVideoQuery } from "../../integration/redux/apis/scriptAp
 import { useAppDispatch, useAppSelector } from "../../integration/redux/hooks";
 import {
   addDescription,
+  setDurationPeriod,
   setIntroVideoId,
   setOutroVideoId,
   setPersonaId,
+  setVoiceToneId,
 } from "../../integration/redux/slice/generateslice";
 import { RootState } from "../../integration/redux/store";
 import {
@@ -37,6 +39,7 @@ import {
   SVGWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
+import { durationOptionsMap } from "../../utilities/constants";
 import {
   Container,
   CreateCard,
@@ -75,6 +78,7 @@ export const Explore = () => {
 
   const { data: brandinfo, error } = useGetBrandInfoQuery();
   const { data: voiceTones, error: voiceToneError } = useGetVoiceToneQuery();
+  const [voice, setVoice] = useState(voiceTones?.data?.voiceTones[0]);
 
   const handleChange = (e: any) => {
     setScript(e.target.value);
@@ -91,6 +95,12 @@ export const Explore = () => {
 
   const handleDurationSelect = (value) => {
     setDurationOption(value);
+    dispatch(setDurationPeriod(durationOptionsMap[value]));
+  };
+
+  const handleVoiceSelection = (value) => {
+    setVoice(value);
+    dispatch(setVoiceToneId(value?._id));
   };
 
   console.log({ generateValues, voiceTones });
@@ -332,7 +342,15 @@ export const Explore = () => {
                   <SVGWrapper height="20px" width="20px">
                     <MicIcon />
                   </SVGWrapper>
-                  <P2>Professional voice</P2>
+                  <Dropdown
+                    options={voiceTones.data.voiceTones}
+                    selectedOption={voice}
+                    setOption={handleVoiceSelection}
+                    optionText="Select Your Voice Type"
+                    noBorder
+                    noPadding
+                    noIcon
+                  />
                 </Tag>
                 <Tag>
                   <SVGWrapper height="20px" width="20px">
