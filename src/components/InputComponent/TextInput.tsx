@@ -1,28 +1,39 @@
 import styled from "styled-components";
 import { colors, fonts } from "../../styles/theme";
 
-interface TextInputInterface  {
-  placeholder: string,
-  onChange: any,
-  value?: string
-
+interface TextInputInterface {
+  placeholder: string;
+  onChange: any;
+  value?: string;
+  minHeight?: string;
 }
-export const TextInput = ({placeholder, onChange, value}: TextInputInterface) => {
+export const TextInput = ({
+  placeholder,
+  onChange,
+  value,
+  minHeight,
+}: TextInputInterface) => {
   return (
     <>
-      <Wrapper>
-        <Input  placeholder={placeholder} rows={4} cols={3} onChange={onChange} value={value|| ''}/>
+      <Wrapper minHeight={minHeight}>
+        <Input
+          placeholder={placeholder}
+          rows={4}
+          cols={3}
+          onChange={onChange}
+          value={value || ""}
+        />
       </Wrapper>
     </>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ minHeight? }>`
   display: flex;
-  min-height: 200px;
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : "200px")};
+  height: 39px;
   gap: 10px;
   width: 100%;
-  height: 36px;
   padding: 5.6px 13px 6.4px 13px;
   align-items: center;
   flex-shrink: 0;
@@ -37,6 +48,7 @@ const Input = styled.textarea`
   height: 100%;
   width: 100%;
   font-family: ${fonts.SansRegular};
+  font-size: 18px;
   color: ${colors.white};
   text-align: left; // Aligns text horizontally to the left
   line-height: 1.5; // Controls vertical spacing
