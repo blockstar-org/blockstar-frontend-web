@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DownCaretIcon } from "../../assets/svgs/svg";
 import { P2, SVGWrapper } from "../../styles/sharedStyles";
@@ -24,14 +24,31 @@ export const Dropdown = ({
   noPadding,
 }: DropdopwnProps) => {
   const [openOptions, setOpenOptions] = useState<boolean>(false);
-  
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (!dropdownRef.current?.contains(event.target as Node)) {
+      setOpenOptions(false);
+    }
+  };
+
+  useEffect(() => {
+    // Attach the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <Wrapper
       onClick={() => setOpenOptions((prev) => !prev)}
       noPadding={noPadding}
       noBorder={noBorder}
     >
-      <P2>{ selectedOption?.name || selectedOption }</P2>
+      <P2>{selectedOption?.name || selectedOption}</P2>
       {!noIcon && (
         <SVGWrapper>
           <DownCaretIcon />
@@ -43,9 +60,11 @@ export const Dropdown = ({
           {options.map((opt) => (
             <Type
               onClick={() => setOption(opt)}
-              isSelected={selectedOption?.name == opt?.name || selectedOption == opt }
+              isSelected={
+                selectedOption?.name == opt?.name || selectedOption == opt
+              }
             >
-              {opt?.name || opt  }
+              {opt?.name || opt}
             </Type>
           ))}
         </OptionWrapper>

@@ -19,10 +19,9 @@ export const TextInput = ({placeholder, onChange, value}: TextInputInterface) =>
 
 const Wrapper = styled.div`
   display: flex;
-  min-height: 200px;
+  min-height: 350px;
   gap: 10px;
   width: 100%;
-  height: 36px;
   padding: 5.6px 13px 6.4px 13px;
   align-items: center;
   flex-shrink: 0;
@@ -37,6 +36,7 @@ const Input = styled.textarea`
   height: 100%;
   width: 100%;
   font-family: ${fonts.SansRegular};
+  font-size: 18px;
   color: ${colors.white};
   text-align: left; // Aligns text horizontally to the left
   line-height: 1.5; // Controls vertical spacing

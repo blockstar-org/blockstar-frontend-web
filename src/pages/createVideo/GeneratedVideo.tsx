@@ -1,8 +1,5 @@
-import { useEffect } from "react";
 import { images } from "../../assets/images";
 import { ProgressBar } from "../../components/progressBar/ProgressBar";
-import { useAppSelector } from "../../integration/redux/hooks";
-import { RootState } from "../../integration/redux/store";
 import {
   FlexColumn,
   FlexRow,
@@ -11,14 +8,9 @@ import {
   P2,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
-import { variables } from "../../utilities/constants";
 import { SelectionContainer } from "./createvideo.style";
 
-export const GeneratedVideo = ({script}) => {
-  const generateValues = useAppSelector((state: RootState) => state.generate);
-  
-
-
+export const GeneratedVideo = ({ script }) => {
   return (
     <>
       <SelectionContainer>
