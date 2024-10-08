@@ -14,7 +14,7 @@ import { colors } from "../../styles/theme";
 import { variables } from "../../utilities/constants";
 import { SelectionContainer } from "./createvideo.style";
 
-export const GeneratedVideo = () => {
+export const GeneratedVideo = (script) => {
   const generateValues = useAppSelector((state: RootState) => state.generate);
   
 
@@ -23,7 +23,7 @@ export const GeneratedVideo = () => {
     <>
       <SelectionContainer>
         <P1>Video Script</P1>
-        <P2>{generateValues.description}</P2>
+        <P2>{script}</P2>
       </SelectionContainer>
       <FlexColumn
         justifycontent="flex-start"

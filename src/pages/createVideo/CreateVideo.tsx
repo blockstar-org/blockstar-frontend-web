@@ -298,7 +298,7 @@ export const CreateVideo = () => {
       </FlexRow>
       <SelectWrapper>
         {generatedVideo ? (
-          <GeneratedVideo />
+          <GeneratedVideo script={messages.scriptData.script}/>
         ) : (
           <SelectionContainer>
             <CustomInput />
