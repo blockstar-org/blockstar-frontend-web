@@ -14,3 +14,7 @@ export const durationOptionsMap = {
   "10 mins": 10,
   "15 mins": 15,
 };
+
+export const token =
+  localStorage.getItem(variables.accessToken) ||
+  sessionStorage.getItem(variables.accessToken);
