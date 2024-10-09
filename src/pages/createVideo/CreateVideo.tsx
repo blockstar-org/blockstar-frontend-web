@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../assets/images";
 import { BackIcon, CheckIcon, ScriptIcon } from "../../assets/svgs/svg";
@@ -378,6 +379,7 @@ export const CreateVideo = () => {
                           height={"100px"}
                           width="100%"
                           onLoadedMetadata={handleLoadedMetadata}
+                          controls
                         >
                             <source src={data?.metadata?.url} type="video/mp4" />
                         </VideoWrapper>
@@ -393,7 +395,7 @@ export const CreateVideo = () => {
                           <SVGWrapper>
                             <CheckIcon />
                           </SVGWrapper>
-                          <P2>Set as default</P2>
+                          <P2 size='11px'>Set as default</P2>
                         </SelectDefault>
                       </CreationVideo>
                     ))}
@@ -420,7 +422,7 @@ export const CreateVideo = () => {
                           height={"100px"}
                           width="100%"
                           onLoadedMetadata={handleLoadedMetadata}
-
+                          controls
                         >
                             <source src={data?.metadata?.url} type="video/mp4" />
                         </VideoWrapper>
@@ -436,7 +438,7 @@ export const CreateVideo = () => {
                           <SVGWrapper>
                             <CheckIcon />
                           </SVGWrapper>
-                          <P2>Set as default</P2>
+                          <P2 size='11px'>Set as default</P2>
                         </SelectDefault>
                       </CreationVideo>
                     ))}
