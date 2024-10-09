@@ -36,7 +36,7 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${resetToken}`,
+          Authorization: `Bearer ${localStorage.getItem(variables.resetToken)}`,
         },
       }),
     }),
@@ -46,12 +46,15 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${resetToken}`,
+          Authorization: `Bearer ${localStorage.getItem(variables.resetToken)}`,
         },
       }),
     }),
   }),
 });
+
+console.log({resetToken});
+
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
