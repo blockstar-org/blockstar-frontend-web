@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useLogOutMutation } from "../../integration/redux/apis/loginApi";
 import { FlexColumn, FlexRow, H2 } from "../../styles/sharedStyles";
-import { variables } from "../../utilities/constants";
+import { token, variables } from "../../utilities/constants";
 import Button from "../button/Button";
 
 export const Header = () => {
   const navigate = useNavigate();
   const [logout] = useLogOutMutation();
-  const isLoggedIn = localStorage.getItem(variables.accessToken) ? true : false;
+  const isLoggedIn = token ? true : false;
   return (
     <FlexRow
       padding="10px"

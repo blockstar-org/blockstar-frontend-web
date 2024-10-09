@@ -1,6 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseApi, variables } from "../../../utilities/constants";
+import { baseApi, token, variables } from "../../../utilities/constants";
 
 // Define a service using a base URL and expected endpoints
 export const loginApi = createApi({
@@ -19,9 +19,7 @@ export const loginApi = createApi({
         url: `auth/user/logout`,
         method: "post",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem(
-            variables.accessToken
-          )}`,
+          Authorization: `Bearer ${token}`,
         },
       }),
     }),
@@ -38,7 +36,7 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem(variables.resetToken)}`,
+          Authorization: `Bearer ${token}`,
         },
       }),
     }),
@@ -48,7 +46,7 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem(variables.resetToken)}`,
+          Authorization: `Bearer ${token}`,
         },
       }),
     }),

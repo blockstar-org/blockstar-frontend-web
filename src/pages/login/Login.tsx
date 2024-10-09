@@ -24,6 +24,7 @@ import { ForgotPassword } from "./ForgotPassword";
 import { notify } from "../../main";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
+import Checkbox from "../../components/checkbox/Checkbox";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -38,17 +39,19 @@ export const Login = () => {
   const navigate = useNavigate();
   const [forgotPass, setForgotPass] = useState<boolean>(false);
   const [login, { data, isLoading, error }] = useLoginMutation();
+  const [value, setCheckbox] = useState<boolean>(false);
 
   const handleLogin = async (values) => {
     try {
       const token = await login(values).unwrap();
-      console.log({token});
-      
+      console.log({ token });
+
       if (token?.data?.accessToken) {
-        localStorage.setItem(
-          variables.accessToken,
-          token?.data?.accessToken
-        );
+        if(value){
+          sessionStorage.setItem(variables.accessToken, token?.data?.accessToken)
+        }else{
+          localStorage.setItem(variables.accessToken, token?.data?.accessToken);
+        }
         notify("Logged in successfully");
         navigate("/");
       }
@@ -108,7 +111,11 @@ export const Login = () => {
                       </div>
                       <FlexRow width="100%" justifycontent="space-between">
                         <FlexRow gap="16px">
-                          <input type={"checkbox"} />
+                          <Checkbox
+                            value={value}
+                            checked={value}
+                            onChange={({ target }) => setCheckbox(!value)}
+                          />
                           <P2>Remember me</P2>
                         </FlexRow>
                         <P2
@@ -138,32 +145,5 @@ export const Login = () => {
         <ImageWrapper src={images.loginImage} alt="login" />
       </FlexRow>
     </LoginContainer>
-  );
-};
-
-const Checkbox = ({ checked, onChange }) => {
-  return (
-    <label className="checkbox-wrapper">
-      <input
-        type="checkbox"
-        className="hidden-checkbox"
-        checked={checked}
-        onChange={onChange}
-      />
-      <span className="styled-checkbox">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9 17L4.5 12.5L3.08 13.92L9 20L21 8L19.59 6.58L9 17Z"
-            fill="white"
-          />
-        </svg>
-      </span>
-    </label>
   );
 };
