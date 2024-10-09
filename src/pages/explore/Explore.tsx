@@ -342,6 +342,7 @@ export const Explore = () => {
                     noBorder
                     noPadding
                     noIcon
+                    grid
                   />
                 </Tag>
                 <Tag>
@@ -356,6 +357,7 @@ export const Explore = () => {
                     noBorder
                     noPadding
                     noIcon
+                    grid
                   />
                 </Tag>
                 <Tag>
@@ -370,6 +372,7 @@ export const Explore = () => {
                     noBorder
                     noPadding
                     noIcon
+                    grid
                   />
                 </Tag>
               </TagGrid>

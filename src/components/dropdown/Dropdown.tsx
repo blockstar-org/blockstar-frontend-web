@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { DownCaretIcon } from "../../assets/svgs/svg";
-import { P2, SVGWrapper } from "../../styles/sharedStyles";
+import { FlexColumn, P2, SVGWrapper } from "../../styles/sharedStyles";
 import { colors, fonts } from "../../styles/theme";
 import { capitalizeFirstLetter } from "../../utilities/constants";
 
@@ -13,6 +13,7 @@ interface DropdopwnProps {
   noBorder?: boolean;
   noPadding?: boolean;
   noIcon?: boolean;
+  grid?: boolean;
 }
 
 export const Dropdown = ({
@@ -23,6 +24,7 @@ export const Dropdown = ({
   noBorder,
   noIcon,
   noPadding,
+  grid,
 }: DropdopwnProps) => {
   const [openOptions, setOpenOptions] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -60,7 +62,7 @@ export const Dropdown = ({
           <DownCaretIcon />
         </SVGWrapper>
       )}
-      {openOptions && (
+      {openOptions && !grid ? (
         <OptionWrapper>
           <P2>{optionText}</P2>
           {options.map((opt) => (
@@ -75,7 +77,25 @@ export const Dropdown = ({
             </Type>
           ))}
         </OptionWrapper>
-      )}
+      ) : openOptions && grid ? (
+        <GridWrapper>
+          <P2>{optionText}</P2>
+          <OptionWrapperGrid>
+            {options.map((opt) => (
+              <Type
+                onClick={() => setOption(opt)}
+                isSelected={
+                  (selectedOption?.name &&
+                    selectedOption?.name === opt?.name) ||
+                  selectedOption === opt
+                }
+              >
+                {capitalizeFirstLetter(opt?.name) || opt}
+              </Type>
+            ))}
+          </OptionWrapperGrid>
+        </GridWrapper>
+      ) : null}
     </Wrapper>
   );
 };
@@ -118,6 +138,37 @@ const OptionWrapper = styled.div`
   overflow: auto;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
+`;
+
+const OptionWrapperGrid = styled.div`
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  max-height: 130px;
+  overflow: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
+  /* backshadow */
+`;
+
+const GridWrapper = styled.div`
+  width: max-content;
+  position: absolute;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  top: 45px;
+  left: 0;
+  padding: 17px;
+  border-radius: var(--border-radius, 8px);
+  border: var(--Stroke_br_lt-2, 0.5px) solid ${colors.gray};
+  background: ${colors.darkpurple};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  
 `;
 
 export const Type = styled.div<{ isSelected? }>`

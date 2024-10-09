@@ -34,6 +34,7 @@ import {
   SelectionContainer,
   SelectWrapper,
   Tag,
+  Title,
   Type,
   TypeWrapper,
 } from "./createvideo.style";
@@ -470,6 +471,7 @@ export const CreateVideo = () => {
             </FlexColumn>
           )
         )}
+      <Title>Select To Generate Video</Title>
       </SelectWrapper>
     </Container>
   );
