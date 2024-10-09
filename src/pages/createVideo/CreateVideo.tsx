@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { images } from "../../assets/images";
-import { BackIcon, CheckIcon, ScriptIcon } from "../../assets/svgs/svg";
+import {
+  BackIcon,
+  CheckIcon,
+  ScriptIcon,
+  TickIcon,
+} from "../../assets/svgs/svg";
 import Button from "../../components/button/Button";
 import { CustomInput } from "../../components/InputComponent/CustomInput";
 import ShimmerCard from "../../components/shimmerCard/ShimmerCard";
@@ -25,15 +30,17 @@ import {
   VideoWrapper,
 } from "../../styles/sharedStyles";
 import { colors } from "../../styles/theme";
-import { variables } from "../../utilities/constants";
+import { token, variables } from "../../utilities/constants";
 import {
   Container,
   CreationVideo,
   GridTab,
   SelectDefault,
   SelectionContainer,
+  SelectTag,
   SelectWrapper,
   Tag,
+  Title,
   Type,
   TypeWrapper,
 } from "./createvideo.style";
@@ -54,6 +61,10 @@ export const CreateVideo = () => {
   const generateValues = useAppSelector((state: RootState) => state.generate);
   const [script, setScript] = useState<string>("");
   const [scriptId, setScriptId] = useState<string>("");
+  const [defaultVideo, setDefaultVideos] = useState<any>({
+    defaultIntroVideo: "",
+    defaultOutroVideo: "",
+  });
 
   const dispatch = useAppDispatch();
 
@@ -66,6 +77,10 @@ export const CreateVideo = () => {
     try {
       const resp = await getPersona({ _id });
       setPersonaData(resp?.data?.data?.personas[0]);
+      setDefaultVideos({
+        defaultIntroVideo: resp?.data?.data?.personas[0]?.defaultIntroVideoId,
+        defaultOutroVideo: resp?.data?.data?.personas[0]?.defaultOutroVideoId,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -96,25 +111,8 @@ export const CreateVideo = () => {
 
   useEffect(() => {
     const startSSE = async () => {
-      //   const response = await fetch(
-      //     `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-      //     {
-      //       method: "GET",
-      //       headers: {
-      //         Authorization: `Bearer ${localStorage.getItem(
-      //           variables.accessToken
-      //         )}`, // Add any required headers here
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   );
-
-      //   if (response.ok) {
-      // Now open the EventSource connection after authentication
       const eventSource = new EventSource(
-        `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}?token=${localStorage.getItem(
-          variables.accessToken
-        )}`
+        `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}?token=${token}`
       );
 
       eventSource.onmessage = (event) => {
@@ -135,152 +133,13 @@ export const CreateVideo = () => {
       return () => {
         eventSource.close();
       };
-      //   } else {
-      //     console.error("Failed to authenticate or fetch initial data");
-      //   }
     };
     if (scriptId) startSSE();
   }, [scriptId]);
 
-  //   useEffect(() => {
-  //     const token = localStorage.getItem(variables.accessToken); // Replace with the actual token
-
-  //     // Using fetch with custom headers to open the connection
-  //     // const connectToSSE = async () => {
-  //     //   const response = await fetch(
-  //     //     `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-  //     //     {
-  //     //       headers: {
-  //     //         Authorization: `Bearer ${token}`,
-  //     //         Accept: "text/event-stream",
-  //     //       },
-  //     //     }
-  //     //   );
-
-  //     //   if (!response.body) {
-  //     //     console.error("Readable stream not supported in this browser");
-  //     //     return;
-  //     //   }
-
-  //     //   const reader = response.body.getReader();
-  //     //   const decoder = new TextDecoder();
-
-  //     //   let buffer = "";
-
-  //     //   const readStream = async () => {
-  //     //     const { value, done } = await reader.read();
-
-  //     //     if (done) {
-  //     //       console.log("SSE stream closed");
-  //     //       return;
-  //     //     }
-
-  //     //     // Decode the stream and accumulate data
-  //     //     buffer += decoder.decode(value, { stream: true });
-
-  //     //     let parts = buffer.split("\n\n"); // Split based on SSE data frames
-  //     //     buffer = parts.pop() || ""; // Keep any incomplete frame in the buffer
-
-  //     //     parts.forEach((part) => {
-  //     //       if (part.startsWith("data: ")) {
-  //     //         const data = part.slice(6);
-  //     //         setMessages((prevMessages) => [...prevMessages, data]);
-  //     //       }
-  //     //     });
-
-  //     //     readStream(); // Keep reading the stream
-  //     //   };
-
-  //     //   readStream();
-  //     // };
-  //     const connectToSSE = () => {
-  //       const xhr = new XMLHttpRequest();
-
-  //       xhr.open(
-  //         "GET",
-  //         `https://backend-blockstar1-dev.rapidinnovation.tech/api/v1/events/get-video-script/${scriptId}`,
-  //         true
-  //       );
-  //       xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-  //       xhr.setRequestHeader("Accept", "text/event-stream");
-
-  //       let buffer = "";
-
-  //       // Process the stream and accumulate data
-  //       xhr.onreadystatechange = () => {
-  //         if (xhr.readyState >= XMLHttpRequest.LOADING) {
-  //           // Log the responseText as it's loading
-  //           console.log(`Received data chunk: ${xhr.responseText}`);
-  //           const cleanedString = xhr.responseText.replace(/^.*?({)/, '$1')
-  //           console.log(
-  //             "filter",
-  //             cleanedString
-  //           );
-  //           if(cleanedString){
-  //             setMessages(cleanedString)
-  //             setIsGenerating(false)
-  //             setIsScript(true)
-  //           }
-
-  //           // Accumulate the response
-  //           buffer += xhr.responseText;
-  //           console.log({ buffer });
-
-  //           // Split the buffer by double newlines
-  //           const parts = buffer.split("\n\n");
-  //           buffer = parts.pop() || ""; // Store any partial frame in buffer
-
-  //           parts.forEach((part) => {
-  //             if (part.startsWith("data: ")) {
-  //               const dataString = part.slice(6); // Get the data part
-  //               console.log("Received event data:", dataString); // Log received message
-  //               try {
-  //                 const jsonData = JSON.parse(dataString); // Parse the JSON data
-  //                 console.log({ jsonData });
-  //                 setMessages((prevMessages) => [...prevMessages, jsonData]); // Save to state
-  //               } catch (error) {
-  //                 console.error("Error parsing JSON:", error);
-  //               }
-  //             } else {
-  //               // Remove unwanted prefixes
-  //               const cleanedString = part.replace(/event: .*?data:\s*/, "");
-
-  //               // Extract JSON part
-  //               const jsonData = cleanedString.trim(); // Trimming any leading or trailing whitespace
-
-  //               // Parse the JSON
-  //               try {
-  //                 // const parsedData = JSON.parse(jsonData);
-  //                 console.log("Parsed Data:", jsonData); // Log the parsed data
-  //                 // Accessing the message
-  //                 // const message = parsedData.message;
-  //                 // console.log("Message:", message);
-  //               } catch (error) {
-  //                 console.error("Error parsing JSON:", error);
-  //               }
-  //             }
-  //           });
-  //         }
-  //       };
-
-  //       xhr.onerror = () => {
-  //         console.error("Error occurred during SSE connection");
-  //       };
-
-  //       xhr.send();
-  //     };
-
-  //     if (scriptId) {
-  //       connectToSSE();
-  //     }
-
-  //     // Clean up on unmount
-  //     return () => {
-  //       console.log("Cleaning up");
-  //     };
-  //   }, [scriptId]);
-
-  const handleLoadedMetadata = (event: React.SyntheticEvent<HTMLVideoElement>) => {
+  const handleLoadedMetadata = (
+    event: React.SyntheticEvent<HTMLVideoElement>
+  ) => {
     const video = event.currentTarget;
     video.currentTime = 5; // Skip to the specified seconds
   };
@@ -361,24 +220,24 @@ export const CreateVideo = () => {
               </FlexRow>
               <GridTab gap={"10px"}>
                 {isFetching
-                  ? [1, 2, 3].map(() => (
-                      <ShimmerCard width={"180px"} height={"125px"} />
+                  ? [1, 2, 3].map((data, key) => (
+                      <ShimmerCard width={"180px"} height={"125px"} key={key} />
                     ))
-                  : personaData?.introVideos?.map((data) => (
-                      <CreationVideo width={"180px"} height={"125px"}>
+                  : personaData?.introVideos?.map((data, key) => (
+                      <CreationVideo width={"180px"} height={"125px"} key={key}>
                         {/* <ImageWrapper
                           src={data?.metadata?.url || images.thumbnail}
                           alt="thumbnail"
                           height={"100px"}
                           width="100%"
                         /> */}
-                         <VideoWrapper
+                        <VideoWrapper
                           height={"100px"}
                           width="100%"
                           onLoadedMetadata={handleLoadedMetadata}
                           controls
                         >
-                            <source src={data?.metadata?.url} type="video/mp4" />
+                          <source src={data?.metadata?.url} type="video/mp4" />
                         </VideoWrapper>
                         <FlexRow width="100%" justifycontent="space-between">
                           <P2 color={colors.grayLight} size="13px">
@@ -386,14 +245,23 @@ export const CreateVideo = () => {
                           </P2>
                         </FlexRow>
                         <SelectDefault
-                          onClick={() => dispatch(setIntroVideoId(data?._id))}
-                          isSelected={generateValues.introVideoId == data?._id}
+                          isSelected={
+                            data?._id == defaultVideo.defaultIntroVideo
+                          }
                         >
                           <SVGWrapper>
                             <CheckIcon />
                           </SVGWrapper>
-                          <P2 size='11px'>Set as default</P2>
+                          <P2 size="11px">Default</P2>
                         </SelectDefault>
+                        <SelectTag
+                          onClick={() => dispatch(setIntroVideoId(data?._id))}
+                          isSelected={generateValues.introVideoId == data?._id}
+                        >
+                          <SVGWrapper>
+                            <TickIcon />
+                          </SVGWrapper>
+                        </SelectTag>
                       </CreationVideo>
                     ))}
               </GridTab>
@@ -410,33 +278,44 @@ export const CreateVideo = () => {
               </FlexRow>
               <GridTab gap={"10px"}>
                 {isFetching
-                  ? [1, 2, 3].map(() => (
-                      <ShimmerCard width={"180px"} height={"125px"} />
+                  ? [1, 2, 3].map((data, key) => (
+                      <ShimmerCard width={"180px"} height={"125px"} key={key} />
                     ))
-                  : personaData?.outroVideos?.map((data) => (
-                      <CreationVideo width={"180px"} height={"125px"}>
+                  : personaData?.outroVideos?.map((data, key) => (
+                      <CreationVideo width={"180px"} height={"125px"} key={key}>
                         <VideoWrapper
                           height={"100px"}
                           width="100%"
-                          onLoadedMetadata={handleLoadedMetadata}
+                          onLoadedMetadata={(e) => handleLoadedMetadata(e)}
                           controls
                         >
-                            <source src={data?.metadata?.url} type="video/mp4" />
+                          <source src={data?.metadata?.url} type="video/mp4" />
                         </VideoWrapper>
                         <FlexRow width="100%" justifycontent="space-between">
                           <P2 color={colors.grayLight} size="13px">
                             {data?.name}
                           </P2>
                         </FlexRow>
+
                         <SelectDefault
-                          onClick={() => dispatch(setOutroVideoId(data?._id))}
-                          isSelected={generateValues.outroVideoId == data?._id}
+                          isSelected={
+                            data?._id == defaultVideo.defaultOutroVideo
+                          }
                         >
                           <SVGWrapper>
                             <CheckIcon />
                           </SVGWrapper>
-                          <P2 size='11px'>Set as default</P2>
+                          <P2 size="11px">Default</P2>
                         </SelectDefault>
+
+                        <SelectTag
+                          onClick={() => dispatch(setOutroVideoId(data?._id))}
+                          isSelected={generateValues.outroVideoId == data?._id}
+                        >
+                          <SVGWrapper>
+                            <TickIcon />
+                          </SVGWrapper>
+                        </SelectTag>
                       </CreationVideo>
                     ))}
               </GridTab>
@@ -470,6 +349,7 @@ export const CreateVideo = () => {
             </FlexColumn>
           )
         )}
+        <Title>Select To Generate Video</Title>
       </SelectWrapper>
     </Container>
   );

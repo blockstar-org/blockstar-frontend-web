@@ -176,6 +176,7 @@ export const FlexRow = styled.div<FlexProps>`
   z-index: ${({ zindex }) => zindex || ""};
   position: ${({ position }) => position || ""};
 `;
+
 export const FlexColumn = styled.div<FlexProps>`
   display: flex;
   flex-direction: column;
@@ -244,7 +245,11 @@ export const ImageWrapper = styled.img<{ height?; width? }>`
   /* aspect-ratio: 1; */
 `;
 
-export const VideoWrapper = styled.video<{ height?: string; width?: string; onLoadedMetadata? }>`
+export const VideoWrapper = styled.video<{
+  height?: string;
+  width?: string;
+  onLoadedMetadata?;
+}>`
   height: ${({ height }) => (height ? height : "auto")};
   width: ${({ width }) => (width ? width : "100%")};
   object-fit: cover;
@@ -363,7 +368,6 @@ export const toolTipTheme = {
   backgroundColor: colors.primary,
 };
 
-
 export const FormikForm = styled(Form)`
   display: flex;
   flex-direction: column;
@@ -406,5 +410,3 @@ export const FormikForm = styled(Form)`
     margin-bottom: 70px;
   }
 `;
-
-

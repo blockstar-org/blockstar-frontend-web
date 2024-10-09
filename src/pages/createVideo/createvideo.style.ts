@@ -14,6 +14,7 @@ export const Container = styled.div`
 `;
 
 export const SelectWrapper = styled.div`
+  position: relative;
   width: 100%;
   display: grid;
   grid-template-columns: 420px auto;
@@ -25,6 +26,7 @@ export const SelectWrapper = styled.div`
 `;
 
 export const SelectionContainer = styled.div`
+  position: relative;
   width: 100%;
   max-width: 420px;
   max-height: 580px;
@@ -38,6 +40,8 @@ export const SelectionContainer = styled.div`
   border-radius: var(--border-radius-2, 20px) var(--border-radius-2, 20px)
     var(--No_Stroke_br, 0px) var(--No_Stroke_br, 0px);
   background: ${colors.gradientGrey};
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
 `;
 
 export const Tag = styled.div`
@@ -66,7 +70,7 @@ export const Type = styled.div<{ isSelected? }>`
   border-radius: var(--border-radius, 8px);
   border: ${({ isSelected }) => isSelected && `1px solid ${colors.grayLight}`};
   background: ${colors.primary};
-  color: ${colors.white};
+  color: ${({ isSelected }) => (isSelected ? colors.white : colors.grayLight)};
   text-align: center;
   /* Body 1 medium */
   font-family: ${fonts.SansRegular};
@@ -78,6 +82,7 @@ export const Type = styled.div<{ isSelected? }>`
   cursor: pointer;
   &:hover {
     border: var(--Stroke_br_normal, 1px) solid ${colors.grayLight};
+    color: ${colors.white};
   }
 `;
 
@@ -113,7 +118,7 @@ export const CreationVideo = styled.div<{ height?; width? }>`
 export const SelectDefault = styled.div<{ isSelected? }>`
   position: absolute;
   top: 5px;
-  right: 5px;
+  left: 8px;
   display: flex;
   padding: 5px 7px;
   align-items: center;
@@ -128,7 +133,48 @@ export const SelectDefault = styled.div<{ isSelected? }>`
   cursor: pointer;
   opacity: ${({ isSelected }) => (isSelected ? "1" : "0")};
   z-index: 999;
+ 
+`;
+export const SelectTag = styled.div<{ isSelected? }>`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: 50%;
+  border: var(--Stroke_br_lt-2, 0.5px) solid
+    ${({ isSelected }) => (isSelected ? colors.white : colors.gray)};
+  background: ${({ isSelected }) =>
+    isSelected ? colors.secondary : colors.primary};
+  box-shadow: 0px -2px 6px 0px rgba(0, 0, 0, 0.11);
+  cursor: pointer;
+  opacity: ${({ isSelected }) => (isSelected ? "1" : "0")};
+  z-index: 999;
   &:hover {
     opacity: 1;
   }
+`;
+
+export const Title = styled.div`
+  position: absolute;
+  top: -20px;
+  left: 22px;
+  display: flex;
+  padding: 4px 15px 7px 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--No_Stroke_br, 0px) var(--No_Stroke_br, 0px) 10px 10px;
+  background: ${colors.primary};
+  color: ${colors.white};
+
+  /* H3 medium */
+  font-family: ${fonts.SansRegular};
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 33.6px */
 `;
