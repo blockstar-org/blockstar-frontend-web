@@ -18,3 +18,7 @@ export const durationOptionsMap = {
 export const token =
   localStorage.getItem(variables.accessToken) ||
   sessionStorage.getItem(variables.accessToken);
+
+  export function capitalizeFirstLetter(string) {
+    return string?.charAt(0).toUpperCase() + string?.slice(1);
+}

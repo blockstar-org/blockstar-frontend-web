@@ -248,6 +248,7 @@ export const VideoWrapper = styled.video<{ height?: string; width?: string; onLo
   height: ${({ height }) => (height ? height : "auto")};
   width: ${({ width }) => (width ? width : "100%")};
   object-fit: cover;
+  border-radius: var(--border-radius, 8px);
   /* Optional: Set a default aspect ratio for the video */
   /* aspect-ratio: 16 / 9; */
   /* Optional: To hide the video controls (can be controlled in JSX as well) */

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { DownCaretIcon } from "../../assets/svgs/svg";
 import { P2, SVGWrapper } from "../../styles/sharedStyles";
 import { colors, fonts } from "../../styles/theme";
+import { capitalizeFirstLetter } from "../../utilities/constants";
 
 interface DropdopwnProps {
   options: any;
@@ -44,11 +45,16 @@ export const Dropdown = ({
 
   return (
     <Wrapper
+      ref={dropdownRef}
       onClick={() => setOpenOptions((prev) => !prev)}
       noPadding={noPadding}
       noBorder={noBorder}
     >
-      <P2>{selectedOption?.name || selectedOption}</P2>
+      <P2>
+        {(selectedOption?.name &&
+          capitalizeFirstLetter(selectedOption?.name)) ||
+          selectedOption}
+      </P2>
       {!noIcon && (
         <SVGWrapper>
           <DownCaretIcon />
@@ -61,10 +67,11 @@ export const Dropdown = ({
             <Type
               onClick={() => setOption(opt)}
               isSelected={
-                selectedOption?.name == opt?.name || selectedOption == opt
+                (selectedOption?.name && selectedOption?.name === opt?.name) ||
+                selectedOption === opt
               }
             >
-              {opt?.name || opt}
+              {capitalizeFirstLetter(opt?.name) || opt}
             </Type>
           ))}
         </OptionWrapper>
