@@ -1,6 +1,6 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseApi, token, variables } from "../../../utilities/constants";
+import { baseApi, resetToken, token, variables } from "../../../utilities/constants";
 
 // Define a service using a base URL and expected endpoints
 export const loginApi = createApi({
@@ -36,7 +36,7 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${resetToken}`,
         },
       }),
     }),
@@ -46,7 +46,7 @@ export const loginApi = createApi({
         method: "post",
         body: payload,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${resetToken}`,
         },
       }),
     }),

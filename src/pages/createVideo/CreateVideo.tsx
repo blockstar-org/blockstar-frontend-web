@@ -234,11 +234,9 @@ export const CreateVideo = () => {
   //             if (part.startsWith("data: ")) {
   //               const dataString = part.slice(6); // Get the data part
   //               console.log("Received event data:", dataString); // Log received message
-
   //               try {
   //                 const jsonData = JSON.parse(dataString); // Parse the JSON data
   //                 console.log({ jsonData });
-
   //                 setMessages((prevMessages) => [...prevMessages, jsonData]); // Save to state
   //               } catch (error) {
   //                 console.error("Error parsing JSON:", error);
@@ -254,7 +252,6 @@ export const CreateVideo = () => {
   //               try {
   //                 // const parsedData = JSON.parse(jsonData);
   //                 console.log("Parsed Data:", jsonData); // Log the parsed data
-
   //                 // Accessing the message
   //                 // const message = parsedData.message;
   //                 // console.log("Message:", message);

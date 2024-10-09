@@ -44,9 +44,9 @@ export const ForgotPassword = ({ setForgotPass }) => {
       console.log({resp});
       
       localStorage.setItem(variables.resetToken, resp?.data?.token);
-      notify(resp.message);
+      notify(resp.data?.message);
     } catch (err) {
-      notify(err.data?.message, true);
+      notify(err?.data?.message, true);
       console.error({ err });
     }
   };
@@ -58,7 +58,7 @@ export const ForgotPassword = ({ setForgotPass }) => {
       localStorage.setItem(variables.resetToken, resp?.data?.data?.token);
       handleResetPassword(values.password);
     } catch (err) {
-      notify(err.data.message, true);
+      notify(err?.data?.message, true);
       console.error({ err });
     }
   };
@@ -70,7 +70,7 @@ export const ForgotPassword = ({ setForgotPass }) => {
       notify(resp.data?.message);
       setForgotPass(false)
     } catch (err) {
-      notify(err.data.message, true);
+      notify(err?.data?.message, true);
       console.error({ err });
     }
   };
