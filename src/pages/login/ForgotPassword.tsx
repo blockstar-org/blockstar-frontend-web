@@ -40,11 +40,11 @@ export const ForgotPassword = ({ setForgotPass }) => {
 
   const getOtp = async (values) => {
     try {
-      const resp: any = await sendOtp(values).unwrap();
-      console.log({resp});
+      const resp: any = await sendOtp(values).unwrap();      
+      console.log({getotp: resp, token: resp?.data?.token});
       
       localStorage.setItem(variables.resetToken, resp?.data?.token);
-      notify(resp.data?.message);
+      notify(resp?.message);
     } catch (err) {
       notify(err?.data?.message, true);
       console.error({ err });
@@ -53,10 +53,10 @@ export const ForgotPassword = ({ setForgotPass }) => {
 
   const verify = async (values) => {
     try {
-      const resp: any = await verifyOtp({otp: values.otp});
-      console.log({ resp });
-      localStorage.setItem(variables.resetToken, resp?.data?.data?.token);
-      handleResetPassword(values.password);
+      const resp: any = await verifyOtp({otp: values.otp}).unwrap();
+      console.log({verify: resp , token: resp?.data?.token});
+      localStorage.setItem(variables.resetToken, resp?.data?.token);
+      await handleResetPassword(values.password);
     } catch (err) {
       notify(err?.data?.message, true);
       console.error({ err });
@@ -65,9 +65,8 @@ export const ForgotPassword = ({ setForgotPass }) => {
 
   const handleResetPassword = async (password) => {
     try {
-      const resp: any = await changePassword({ password: password });
-      console.log({ resp });
-      notify(resp.data?.message);
+      const resp: any = await changePassword({ password: password }).unwrap();      
+      notify(resp?.message);
       setForgotPass(false)
     } catch (err) {
       notify(err?.data?.message, true);
