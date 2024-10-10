@@ -408,4 +408,8 @@ const Tag = styled.div`
   border-radius: var(--border-radius, 8px);
   border: var(--Stroke_br_normal, 1px) solid ${colors.gray};
   background: ${colors.primary};
+
+  &:hover {
+    border: var(--Stroke_br_normal, 1px) solid ${colors.grayLight};
+  }
 `;
