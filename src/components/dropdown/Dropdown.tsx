@@ -135,6 +135,7 @@ const OptionWrapper = styled.div`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   z-index: 9999;
   max-height: 130px;
+  min-height: 150px;
   overflow: auto;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
@@ -142,6 +143,7 @@ const OptionWrapper = styled.div`
 
 const OptionWrapperGrid = styled.div`
   width: max-content;
+  max-width: 400px;
   display: grid;
   grid-template-columns: 1fr 1fr auto;
   gap: 10px;
@@ -174,8 +176,8 @@ const GridWrapper = styled.div`
 export const Type = styled.div<{ isSelected? }>`
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 10px;
   border-radius: var(--border-radius, 8px);
   border: ${({ isSelected }) => isSelected && `1px solid ${colors.grayLight}`};

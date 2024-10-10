@@ -24,9 +24,16 @@ export const scriptApi = createApi({
         method: "get",
       }),
     }),
+    updateScript: builder.mutation<any, any>({
+      query: ({ scriptId, payload }) => ({
+        url: `video/script/${scriptId}`,
+        method: "PATCH",
+        body: payload
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetGeneratedVideoQuery } = scriptApi;
+export const { useGetGeneratedVideoQuery, useUpdateScriptMutation } = scriptApi;

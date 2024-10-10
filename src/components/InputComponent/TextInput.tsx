@@ -34,7 +34,7 @@ const Wrapper = styled.div<{ minHeight? }>`
   height: 39px;
   gap: 10px;
   width: 100%;
-  padding: 5.6px 13px 6.4px 13px;
+  padding: 13px;
   align-items: center;
   flex-shrink: 0;
   border-radius: var(--border-radius, 8px);
