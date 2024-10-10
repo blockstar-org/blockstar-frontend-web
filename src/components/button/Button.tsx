@@ -50,7 +50,7 @@ const Button = (props: ButtonProps) => {
       style={style || {}}
       type={type}
       padding={padding}
-      loading={loading?.toString()}
+      loading={loading}
     >
       <p>{text}</p>
       {icon}
@@ -66,7 +66,7 @@ interface Props {
   textColor?: string
   secondary?: string
   padding?: string
-  loading?: string
+  loading?: boolean
   onClick?: any
 }
 
@@ -86,6 +86,7 @@ const ButtonContainer = styled.button<Props>`
   gap: 7px;
   white-space: nowrap;
   position: relative;
+  opacity: ${({ loading }) => (loading ? '0.5' : '1')};
 
   p {
     color: ${({ secondary }) => (secondary == 'true' ? '#000' : '#FFF')};
@@ -110,7 +111,7 @@ const ButtonContainer = styled.button<Props>`
   }
 
   &:disabled {
-    opacity: ${({ loading }) => (loading ? '1' : '0.7')};
+    opacity: 0.7;
     cursor: not-allowed;
   }
 `

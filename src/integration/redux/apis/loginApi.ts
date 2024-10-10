@@ -50,6 +50,15 @@ export const loginApi = createApi({
         },
       }),
     }),
+    logout: builder.mutation<any, any>({
+      query: () => ({
+        url: `auth/user/logout`,
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(variables.resetToken)}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -64,4 +73,5 @@ export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useChangePasswordMutation,
+  useLogoutMutation
 } = loginApi;

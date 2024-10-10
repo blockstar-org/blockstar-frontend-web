@@ -14,6 +14,7 @@ const Layout = () => {
 
     if (!isLoading && (error as FetchBaseQueryError)?.status === 401) {
       localStorage.clear();
+      sessionStorage.clear()
       navigate("/login");
     }
   }, [error, navigate, isLoading]);
