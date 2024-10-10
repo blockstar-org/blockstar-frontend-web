@@ -1,20 +1,20 @@
-import styled from 'styled-components'
-import { colors, fonts } from '../../styles/theme'
-import SmallLoader from '../loaders/SmallLoader'
+import styled from "styled-components";
+import { colors, fonts } from "../../styles/theme";
+import SmallLoader from "../loaders/SmallLoader";
 
 interface ButtonProps {
-  text: string
-  onClick?: any
-  icon?: any
-  textColor?: string
-  backgroundColor?: string
-  disabled?: boolean
-  secondary?: boolean
-  style?: React.CSSProperties
-  type?: 'button' | 'submit' | 'reset'
-  padding?: string
-  loading?: boolean
-  stopPropogation?: boolean
+  text: string;
+  onClick?: any;
+  icon?: any;
+  textColor?: string;
+  backgroundColor?: string;
+  disabled?: boolean;
+  secondary?: boolean;
+  style?: React.CSSProperties;
+  type?: "button" | "submit" | "reset";
+  padding?: string;
+  loading?: boolean;
+  stopPropogation?: boolean;
 }
 
 const Button = (props: ButtonProps) => {
@@ -27,18 +27,18 @@ const Button = (props: ButtonProps) => {
     secondary,
     style,
     icon,
-    type = 'button',
+    type = "button",
     padding,
     loading,
     stopPropogation,
-  } = props
+  } = props;
 
   const handleClick = (e) => {
-    if (onClick) onClick()
+    if (onClick) onClick();
     if (stopPropogation) {
-      e.stopPropagation()
+      e.stopPropagation();
     }
-  }
+  };
 
   return (
     <ButtonContainer
@@ -52,22 +52,22 @@ const Button = (props: ButtonProps) => {
       padding={padding}
       loading={loading}
     >
-      <p>{text}</p>
-      {icon}
-      {loading && <SmallLoader color={'#fff'} />}
+      {loading ? null : <p>{text}</p>}
+      {loading ? null : icon}
+      {loading && <SmallLoader color={"#fff"} />}
     </ButtonContainer>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;
 
 interface Props {
-  backgroundColor?: string
-  textColor?: string
-  secondary?: string
-  padding?: string
-  loading?: boolean
-  onClick?: any
+  backgroundColor?: string;
+  textColor?: string;
+  secondary?: string;
+  padding?: string;
+  loading?: boolean;
+  onClick?: any;
 }
 
 const ButtonContainer = styled.button<Props>`
@@ -77,19 +77,20 @@ const ButtonContainer = styled.button<Props>`
   align-items: center;
   cursor: pointer;
   border-radius: 15px;
-  background: ${({ secondary }) => (secondary == 'true' ? colors.primary : colors.secondary)};
+  background: ${({ secondary }) =>
+    secondary == "true" ? colors.primary : colors.secondary};
   border: 1px solid
-    ${({ secondary }) => (secondary == 'true' ? '#E9F1FF' : 'transparent')};
+    ${({ secondary }) => (secondary == "true" ? "#E9F1FF" : "transparent")};
   display: flex;
   height: 44px;
-  padding: ${({ padding }) => padding || '14px 30px'};
+  padding: ${({ padding }) => padding || "14px 30px"};
   gap: 7px;
   white-space: nowrap;
   position: relative;
-  opacity: ${({ loading }) => (loading ? '0.5' : '1')};
+  opacity: ${({ loading }) => (loading ? "0.5" : "1")};
 
   p {
-    color: ${({ secondary }) => (secondary == 'true' ? '#000' : '#FFF')};
+    color: ${({ secondary }) => (secondary == "true" ? "#000" : "#FFF")};
     text-align: right;
     font-family: ${fonts.SansRegular};
     font-size: 16px;
@@ -107,11 +108,12 @@ const ButtonContainer = styled.button<Props>`
   &:hover {
     background: ${colors.darkBlue};
     /* border: 1px solid
-      ${({ secondary }) => (secondary == 'true' ? '#E5E7EB' : 'transparent')}; */
+      ${({ secondary }) =>
+      secondary == "true" ? "#E5E7EB" : "transparent"}; */
   }
 
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;
   }
-`
+`;
