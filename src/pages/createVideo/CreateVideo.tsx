@@ -16,6 +16,7 @@ import { useGenerateVideoMutation } from "../../integration/redux/apis/generateA
 import { useAppDispatch, useAppSelector } from "../../integration/redux/hooks";
 import {
   addDescription,
+  clearAllData,
   setIntroVideoId,
   setOutroVideoId,
   setSpeaker,
@@ -95,7 +96,7 @@ export const CreateVideo = () => {
       setScriptId(script.data.data.script._id);
       //   getScript(script.data.data.script._id)
       //   setIsScript(true);
-      dispatch(addDescription(''))
+      dispatch(addDescription(""));
     } catch (err) {
       console.error({ err });
     }
@@ -152,7 +153,10 @@ export const CreateVideo = () => {
         style={{ cursor: "pointer" }}
         onClick={() => {
           if (generatedVideo) setGeneratedVideo(false);
-          else navigate(-1);
+          else {
+            navigate(-1);
+            dispatch(clearAllData());
+          }
         }}
       >
         <SVGWrapper>
