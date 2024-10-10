@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { images } from "../../assets/images";
@@ -8,6 +9,8 @@ import {
   NotificationIcon,
   PersonaIcon,
 } from "../../assets/svgs/svg";
+import { useLogOutMutation } from "../../integration/redux/apis/loginApi";
+import { notify } from "../../main";
 import {
   FlexColumn,
   FlexRow,
@@ -15,8 +18,9 @@ import {
   P2,
   SVGWrapper,
 } from "../../styles/sharedStyles";
-import { colors } from "../../styles/theme";
+import { colors, fonts } from "../../styles/theme";
 import Button from "../button/Button";
+import { Dropdown } from "../dropdown/Dropdown";
 import { CustomInput } from "../InputComponent/CustomInput";
 
 export const WithSidebar = <P extends object>(
@@ -25,6 +29,39 @@ export const WithSidebar = <P extends object>(
   return (props) => {
     const { pathname } = useLocation();
     const navigate = useNavigate();
+    const [showLogout, setLogout] = useState<boolean>(false);
+
+    const [logoutUser, { error, isLoading }] = useLogOutMutation();
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!dropdownRef.current?.contains(event.target as Node)) {
+        setLogout(false);
+      }
+    };
+
+    useEffect(() => {
+      // Attach the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+
+      // Cleanup the event listener
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
+
+    const logout = async () => {
+      try {
+        await logoutUser();
+        notify("Logged out successfully");
+        localStorage.clear();
+        sessionStorage.clear();
+        navigate("/login");
+      } catch (err) {
+        console.error({ err });
+      }
+    };
+    
     return (
       <Container>
         <SidebarWrapper>
@@ -74,13 +111,24 @@ export const WithSidebar = <P extends object>(
               </SVGWrapper>
               <CustomInput />
             </FlexRow>
-            <FlexRow gap="6px">
+            <FlexRow
+              gap="6px"
+              position="relative"
+              cursor="pointer"
+              onClick={() => setLogout((prev) => !prev)}
+              ref={dropdownRef}
+            >
               <P2>Phillipe</P2>
               <ImageWrapper
                 src={images.demoImage}
                 alt="demoimage"
-                style={{ borderRadius: "50%" }}
+                style={{ borderRadius: "50%", cursor: "pointer" }}
               />
+              {showLogout && (
+                <OptionWrapper>
+                  <Type onClick={() => logout()}>Logout</Type>
+                </OptionWrapper>
+              )}
             </FlexRow>
           </GlobalSearchWrapper>
           <WrappedComponent {...props} />
@@ -133,4 +181,52 @@ const GlobalSearchWrapper = styled.div`
   align-items: center;
   flex-shrink: 0;
   border-bottom: var(--Stroke_br_normal, 1px) solid rgba(71, 84, 103, 0.5);
+`;
+
+const OptionWrapper = styled.div`
+  width: max-content;
+  position: absolute;
+  top: 45px;
+  left: -10px;
+  display: flex;
+  padding: 17px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: var(--border-radius, 8px);
+  border: var(--Stroke_br_lt-2, 0.5px) solid ${colors.gray};
+  background: ${colors.darkpurple};
+
+  /* backshadow */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  max-height: 130px;
+  min-height: fit-content;
+  overflow: auto;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none;
+`;
+
+export const Type = styled.div<{ isSelected? }>`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: var(--border-radius, 8px);
+  border: ${({ isSelected }) => isSelected && `1px solid ${colors.grayLight}`};
+  background: ${colors.primary};
+  color: ${colors.white};
+  text-align: center;
+  /* Body 1 medium */
+  font-family: ${fonts.SansRegular};
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 15.6px */
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    border: var(--Stroke_br_normal, 1px) solid ${colors.grayLight};
+  }
 `;
