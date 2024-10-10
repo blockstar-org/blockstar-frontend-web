@@ -47,6 +47,16 @@ export const generateslice = createSlice({
     setVoiceToneId: (state, action) => {
       state.voiceToneId = action.payload;
     },
+    clearAllData: (state) => {
+      state.description = "";
+      state.videoFrom = "article";
+      state.speaker = "";
+      state.personaId = "";
+      state.videoDuration = 2;
+      state.voiceToneId = "66f6a103b5a59e60de1cd7bf";
+      state.introVideoId = "";
+      state.outroVideoId = "";
+    },
   },
 });
 
@@ -59,6 +69,7 @@ export const {
   setSpeaker,
   setDurationPeriod,
   setVoiceToneId,
+  clearAllData
 } = generateslice.actions;
 
 export default generateslice.reducer;

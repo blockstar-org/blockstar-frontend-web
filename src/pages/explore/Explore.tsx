@@ -23,6 +23,7 @@ import { useGetGeneratedVideoQuery } from "../../integration/redux/apis/scriptAp
 import { useAppDispatch, useAppSelector } from "../../integration/redux/hooks";
 import {
   addDescription,
+  clearAllData,
   setDurationPeriod,
   setIntroVideoId,
   setOutroVideoId,
@@ -305,7 +306,11 @@ export const Explore = () => {
       </FlexColumn>
 
       {openModal && (
-        <CustomModal showCloseIcon onClose={() => setOpenModal(false)}>
+        <CustomModal showCloseIcon onClose={() => {
+          setOpenModal(false)
+          dispatch(clearAllData())
+          setScript('')
+          }}>
           <FlexColumn width="100%" alignitems="flex-start" gap="36px">
             <FlexRow
               width="100%"
