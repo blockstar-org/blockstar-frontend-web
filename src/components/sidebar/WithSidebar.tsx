@@ -49,7 +49,7 @@ export const WithSidebar = <P extends object>(
       };
     }, []);
 
-    const logout = async () => {
+     const logout = async () => {
       try {
         await logoutUser();
         notify("Logged out successfully");

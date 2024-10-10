@@ -32,13 +32,13 @@ export const VideoScript = ({
   };
 
   return (
-    <FlexColumn alignitems="flex-start" justifycontent="flex-start" gap="36px">
+    <FlexColumn alignitems="flex-start" justifycontent="flex-start" gap="26px">
       <P1 size="23px">Your Video Script</P1>
       <TextInput
         placeholder={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.`}
         onChange={onChange}
         value={script}
-        minHeight="350px"
+        minHeight="338px"
       />
       <FlexRow gap="16px">
         <Checkbox
