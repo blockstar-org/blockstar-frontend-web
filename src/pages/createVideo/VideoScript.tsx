@@ -46,7 +46,7 @@ export const VideoScript = ({
           checked={value}
           onChange={({ target }) => setCheckbox(!value)}
         />{" "}
-        <P2 size="16px">Please check to proceed with script generation</P2>
+        <P2 size="16px">Please check to proceed with video generation</P2>
       </FlexRow>
       <Button
         text="Submit"
