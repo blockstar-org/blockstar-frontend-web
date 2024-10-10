@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  gap: 50px;
+  gap: 30px;
 `;
 
 export const CreateCard = styled.div`

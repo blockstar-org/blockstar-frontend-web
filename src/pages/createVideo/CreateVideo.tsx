@@ -15,6 +15,7 @@ import { useLazyGetPersonaQuery } from "../../integration/redux/apis/brandApi";
 import { useGenerateVideoMutation } from "../../integration/redux/apis/generateApi";
 import { useAppDispatch, useAppSelector } from "../../integration/redux/hooks";
 import {
+  addDescription,
   setIntroVideoId,
   setOutroVideoId,
   setSpeaker,
@@ -94,6 +95,7 @@ export const CreateVideo = () => {
       setScriptId(script.data.data.script._id);
       //   getScript(script.data.data.script._id)
       //   setIsScript(true);
+      dispatch(addDescription(''))
     } catch (err) {
       console.error({ err });
     }
@@ -106,8 +108,6 @@ export const CreateVideo = () => {
       navigate("/");
     }
   }, []);
-
-  const [messages, setMessages] = useState<any>();
 
   useEffect(() => {
     const startSSE = async () => {
