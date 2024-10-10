@@ -25,6 +25,7 @@ import { notify } from "../../main";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import Checkbox from "../../components/checkbox/Checkbox";
+import useWindowDimensions from "../../utilities/hooks/useWindowDimensions";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -40,6 +41,7 @@ export const Login = () => {
   const [forgotPass, setForgotPass] = useState<boolean>(false);
   const [login, { data, isLoading, error }] = useLoginMutation();
   const [value, setCheckbox] = useState<boolean>(false);
+  const { isMobile } = useWindowDimensions();
 
   const handleLogin = async (values) => {
     try {
@@ -47,17 +49,20 @@ export const Login = () => {
       console.log({ token });
 
       if (token?.data?.accessToken) {
-        if(value){
-          sessionStorage.setItem(variables.accessToken, token?.data?.accessToken)
-        }else{
+        if (value) {
+          sessionStorage.setItem(
+            variables.accessToken,
+            token?.data?.accessToken
+          );
+        } else {
           localStorage.setItem(variables.accessToken, token?.data?.accessToken);
         }
         notify("Logged in successfully");
         navigate("/");
       }
     } catch (err) {
-      console.log({err});
-      
+      console.log({ err });
+
       notify(err?.data?.message, true);
       console.error({ err });
     }
@@ -143,9 +148,11 @@ export const Login = () => {
           </FlexColumn>
         </FlexColumn>
       )}
-      <FlexRow>
-        <ImageWrapper src={images.loginImage} alt="login" />
-      </FlexRow>
+      {isMobile ? null : (
+        <FlexRow>
+          <ImageWrapper src={images.loginImage} alt="login" />
+        </FlexRow>
+      )}
     </LoginContainer>
   );
 };

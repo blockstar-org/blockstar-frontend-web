@@ -7,7 +7,7 @@ import {
   HomeIcon,
   MyVideoIcon,
   NotificationIcon,
-  PersonaIcon,
+  PersonaIcon
 } from "../../assets/svgs/svg";
 import { useLogOutMutation } from "../../integration/redux/apis/loginApi";
 import { notify } from "../../main";
@@ -16,11 +16,10 @@ import {
   FlexRow,
   ImageWrapper,
   P2,
-  SVGWrapper,
+  SVGWrapper
 } from "../../styles/sharedStyles";
 import { colors, fonts } from "../../styles/theme";
 import Button from "../button/Button";
-import { Dropdown } from "../dropdown/Dropdown";
 import { CustomInput } from "../InputComponent/CustomInput";
 
 export const WithSidebar = <P extends object>(
@@ -30,7 +29,7 @@ export const WithSidebar = <P extends object>(
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const [showLogout, setLogout] = useState<boolean>(false);
-
+    
     const [logoutUser, { error, isLoading }] = useLogOutMutation();
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -61,7 +60,7 @@ export const WithSidebar = <P extends object>(
         console.error({ err });
       }
     };
-    
+
     return (
       <Container>
         <SidebarWrapper>
