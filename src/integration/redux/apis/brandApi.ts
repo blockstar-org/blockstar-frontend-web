@@ -11,13 +11,13 @@ export const brandApi = createApi({
       // Get token from the Redux store (for example)
 
       // Add an Authorization header if the token is available
-      console.log({token});
-      
+      const token =
+        localStorage.getItem(variables.accessToken) ||
+        sessionStorage.getItem(variables.accessToken);
+
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
-      }else {
-        // window.location.reload()
-      }
+      } 
       return headers;
     },
   }),
@@ -33,7 +33,6 @@ export const brandApi = createApi({
           // window.location.reload();
         }
       },
-      
     }),
     getPersona: builder.query<any, any>({
       query: ({ _id }) => ({

@@ -1,6 +1,11 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseApi, resetToken, token, variables } from "../../../utilities/constants";
+import {
+  baseApi,
+  resetToken,
+  token,
+  variables,
+} from "../../../utilities/constants";
 
 // Define a service using a base URL and expected endpoints
 export const loginApi = createApi({
@@ -19,7 +24,10 @@ export const loginApi = createApi({
         url: `auth/user/logout`,
         method: "post",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${
+            localStorage.getItem(variables.accessToken) ||
+            sessionStorage.getItem(variables.accessToken)
+          }`,
         },
       }),
     }),
@@ -62,8 +70,7 @@ export const loginApi = createApi({
   }),
 });
 
-console.log({resetToken});
-
+console.log({ resetToken });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
@@ -73,5 +80,5 @@ export const {
   useSendOtpMutation,
   useVerifyOtpMutation,
   useChangePasswordMutation,
-  useLogoutMutation
+  useLogoutMutation,
 } = loginApi;

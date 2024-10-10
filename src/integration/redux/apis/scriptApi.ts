@@ -9,7 +9,9 @@ export const scriptApi = createApi({
     baseUrl: `${baseApi}`,
     prepareHeaders: (headers, { getState }) => {
       // Get token from the Redux store (for example)
-
+      const token =
+      localStorage.getItem(variables.accessToken) ||
+      sessionStorage.getItem(variables.accessToken);
       // Add an Authorization header if the token is available
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);

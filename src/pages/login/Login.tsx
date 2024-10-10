@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -67,6 +67,15 @@ export const Login = () => {
       console.error({ err });
     }
   };
+
+  useEffect(() => {
+    const token =
+      localStorage.getItem(variables.accessToken) ||
+      sessionStorage.getItem(variables.accessToken);
+    if (token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <LoginContainer>
