@@ -13,8 +13,8 @@ const SmallLoader = ({
 export default SmallLoader
 
 const SmallLoaderCont = styled.span<{ color?: string }>`
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-bottom-color: ${({ color }) => color || '#fff'};
   border-radius: 50%;
@@ -32,7 +32,7 @@ const SmallLoaderCont = styled.span<{ color?: string }>`
     }
   }
   position: absolute;
-  right: 8px;
+  /* right: 8px; */
 
   &.large {
     position: static;
