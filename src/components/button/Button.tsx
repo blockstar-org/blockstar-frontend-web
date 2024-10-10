@@ -103,17 +103,14 @@ const ButtonContainer = styled.button<Props>`
     }
   } */
 
-  /* &:hover {
-    background: ${({ secondary }) =>
-      secondary == 'true'
-        ? '#fff'
-        : colors.primary};
-    border: 1px solid
-      ${({ secondary }) => (secondary == 'true' ? '#E5E7EB' : 'transparent')};
-  } */
+  &:hover {
+    background: ${colors.darkBlue};
+    /* border: 1px solid
+      ${({ secondary }) => (secondary == 'true' ? '#E5E7EB' : 'transparent')}; */
+  }
 
   &:disabled {
-    opacity: ${({ loading }) => (loading == 'true' ? '1' : '0.7')};
+    opacity: ${({ loading }) => (loading ? '1' : '0.7')};
     cursor: not-allowed;
   }
 `

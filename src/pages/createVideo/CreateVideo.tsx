@@ -119,7 +119,7 @@ export const CreateVideo = () => {
         const newMessage = event.data;
         console.log({ newMessage });
 
-        setMessages(JSON.parse(newMessage));
+        setScript(JSON.parse(newMessage).scriptData.script);
         setIsGenerating(false);
         setIsScript(true);
       };
@@ -162,10 +162,10 @@ export const CreateVideo = () => {
       </FlexRow>
       <SelectWrapper>
         {generatedVideo ? (
-          <GeneratedVideo script={messages.scriptData.script} />
+          <GeneratedVideo script={script} />
         ) : (
           <SelectionContainer>
-            <CustomInput />
+            {/* <CustomInput /> */}
             <FlexColumn
               gap="10px"
               justifycontent="flex-start"
@@ -244,16 +244,18 @@ export const CreateVideo = () => {
                             {data?.name}
                           </P2>
                         </FlexRow>
-                        <SelectDefault
-                          isSelected={
-                            data?._id == defaultVideo.defaultIntroVideo
-                          }
-                        >
-                          <SVGWrapper>
-                            <CheckIcon />
-                          </SVGWrapper>
-                          <P2 size="11px">Default</P2>
-                        </SelectDefault>
+                        {data?._id == generateValues.introVideoId ? (
+                          <SelectDefault
+                            isSelected={
+                              data?._id == defaultVideo.defaultIntroVideo
+                            }
+                          >
+                            <SVGWrapper>
+                              <CheckIcon />
+                            </SVGWrapper>
+                            <P2 size="11px">Default</P2>
+                          </SelectDefault>
+                        ) : null}
                         <SelectTag
                           onClick={() => dispatch(setIntroVideoId(data?._id))}
                           isSelected={generateValues.introVideoId == data?._id}
@@ -297,16 +299,18 @@ export const CreateVideo = () => {
                           </P2>
                         </FlexRow>
 
-                        <SelectDefault
-                          isSelected={
-                            data?._id == defaultVideo.defaultOutroVideo
-                          }
-                        >
-                          <SVGWrapper>
-                            <CheckIcon />
-                          </SVGWrapper>
-                          <P2 size="11px">Default</P2>
-                        </SelectDefault>
+                        {data?._id == generateValues.outroVideoId ? (
+                          <SelectDefault
+                            isSelected={
+                              data?._id == defaultVideo.defaultOutroVideo
+                            }
+                          >
+                            <SVGWrapper>
+                              <CheckIcon />
+                            </SVGWrapper>
+                            <P2 size="11px">Default</P2>
+                          </SelectDefault>
+                        ) : null}
 
                         <SelectTag
                           onClick={() => dispatch(setOutroVideoId(data?._id))}
@@ -324,7 +328,7 @@ export const CreateVideo = () => {
               text="Select To Generate Video Script"
               style={{ width: "100%" }}
               onClick={() => generateScript()}
-              disabled={!generateValues.speaker || isGenerating}
+              disabled={!generateValues.speaker || isGenerating || !!script}
               loading={isGenerating}
             />
           </SelectionContainer>
@@ -334,7 +338,8 @@ export const CreateVideo = () => {
             setGeneratedVideo={setGeneratedVideo}
             setIsScript={setIsScript}
             onChange={handleChange}
-            script={messages}
+            script={script}
+            scriptId={scriptId}
           />
         ) : (
           !generatedVideo && (

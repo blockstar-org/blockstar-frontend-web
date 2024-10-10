@@ -323,11 +323,11 @@ export const Explore = () => {
             </FlexRow>
 
             <FlexColumn width="100%" alignitems="flex-start" gap="17px">
-              <P2>Add video description</P2>
+              <P2 size='20px'>Describe your article</P2>
               <TextInput
                 placeholder="Enter text to describe the video you wish to create. (Ex: Social Selling 101 with)"
                 onChange={handleChange}
-                value={script}
+                value={script || generateValues.description}
               />
               <TagGrid>
                 <Tag>

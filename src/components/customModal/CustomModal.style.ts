@@ -38,11 +38,12 @@ export const ModalContent = styled.div<{
           ${slideIn} 0.3s forwards
         `
       : ''};
+  min-width: 785px;
   max-width: 835px;
   border: 1px solid ${colors.gray};
 
   @media (max-width: ${screenSizesPx.tablet}) {
-    padding: ${({ nopadding }) => (nopadding == 'true' ? '0px' : '16px')};
+    /* padding: ${({ nopadding }) => (nopadding == 'true' ? '0px' : '16px')}; */
     min-width: unset;
     width: 90vw;
   }
